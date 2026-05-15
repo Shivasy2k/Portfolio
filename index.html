@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-suffix="off">Home</title>
+  <meta name="description" content="Portfolio of Siva — product and technology leader focused on secure, intelligent systems at scale." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" data-site="brand-mark">S</span>
+        <span data-site="brand">Siva</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">Menu</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="talks.html">Talks &amp; Media</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a class="btn btn--primary nav-cta" href="contact.html">Get in touch</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow" data-site="tagline">Product · Cloud · AI</span>
+          <h1>Engineering thoughtful products and the teams that build them.</h1>
+          <p class="hero-lead">
+            I'm <strong data-site="fullName">Siva</strong>, a <span data-site="role">product and technology leader</span>
+            working at the intersection of cloud-native architecture, applied AI, and engineering culture.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="talks.html">View talks &amp; media</a>
+            <a class="btn btn--ghost" href="about.html">About me</a>
+          </div>
+          <div class="hero-tags">
+            <span class="tag">Cloud-Native</span>
+            <span class="tag">Applied AI / ML</span>
+            <span class="tag">Platform Engineering</span>
+            <span class="tag">Mentorship</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Profile summary">
+          <h3 data-site="fullName">Siva</h3>
+          <div class="role" data-site="role">Product &amp; Technology Leader</div>
+          <ul class="hero-list" data-render="highlights"></ul>
+          <div class="social-row" data-site="socials"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">At a glance</span>
+          <h2>A decade of building, learning, and sharing.</h2>
+          <p>Numbers that summarize the work — though the real story lives in the people, products, and platforms behind them.</p>
+        </div>
+        <div class="stats" data-render="stats"></div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <h2>Have a project, a stage, or a conversation in mind?</h2>
+        <p>I'm always happy to talk product, platform engineering, or applied AI — whether for collaboration, advisory, or speaking.</p>
+        <div class="hero-actions" style="justify-content: center;">
+          <a class="btn btn--primary" href="contact.html">Start a conversation</a>
+          <a class="btn btn--ghost" href="talks.html">Browse talks</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" style="margin-bottom: 12px;">
+            <span class="brand-mark" data-site="brand-mark">S</span>
+            <span data-site="brand">Siva</span>
+          </a>
+          <p style="max-width: 36ch; font-size: 0.92rem; margin-top: 8px;">
+            Building secure, intelligent products at scale — and the teams that make them possible.
+          </p>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul data-site="footer-nav"></ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul class="footer-grid" style="display:grid; gap: 8px; grid-template-columns: 1fr;">
+            <li><a data-site="email" href="mailto:">Email</a></li>
+          </ul>
+          <div class="social-row" data-site="socials" style="margin-top: 12px;"></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-site="year"></span> <span data-site="fullName">Siva</span>. All rights reserved.</span>
+        <span>Crafted with care · Content from <code>/data</code></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "year": "2026",
+      "title": "Designing Trust into AI Products",
+      "venue": "Global Product Summit",
+      "format": "Keynote",
+      "link": "#"
+    },
+    {
+      "year": "2026",
+      "title": "From Prototype to Production with LLMs",
+      "venue": "AI Engineering Days",
+      "format": "Workshop",
+      "link": "#"
+    },
+    {
+      "year": "2025",
+      "title": "Cloud-Native Platforms for Modern Teams",
+      "venue": "PlatformCon",
+      "format": "Conference Talk",
+      "link": "#"
+    },
+    {
+      "year": "2025",
+      "title": "Securing Payment APIs at Scale",
+      "venue": "APIDays New York",
+      "format": "Invited Talk",
+      "link": "#"
+    },
+    {
+      "year": "2024",
+      "title": "Mentoring in Tech: Building People, Not Just Products",
+      "venue": "Tech Leaders Forum",
+      "format": "Panel",
+      "link": "#"
+    },
+    {
+      "year": "2024",
+      "title": "Resilient Kubernetes for Peak Traffic",
+      "venue": "Local Cloud Meetup",
+      "format": "Meetup",
+      "link": "#"
+    }
+  ]
+}

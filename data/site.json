@@ -1,0 +1,19 @@
+{
+  "brand": "Siva",
+  "fullName": "Siva Bhoopathy",
+  "role": "Product & Technology Leader",
+  "tagline": "Building secure, intelligent products at scale",
+  "email": "shivasy2k@gmail.com",
+  "socials": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/" },
+    { "label": "GitHub",   "url": "https://github.com/Shivasy2k" },
+    { "label": "X / Twitter", "url": "https://x.com/" },
+    { "label": "Email",    "url": "mailto:shivasy2k@gmail.com" }
+  ],
+  "footerNav": [
+    { "label": "Home",   "url": "index.html" },
+    { "label": "About",  "url": "about.html" },
+    { "label": "Talks & Media", "url": "talks.html" },
+    { "label": "Contact","url": "contact.html" }
+  ]
+}

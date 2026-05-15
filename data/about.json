@@ -1,0 +1,30 @@
+{
+  "bio": [
+    "I'm Siva — a product and technology leader focused on building secure, intelligent systems that respect the people who use them.",
+    "Over the last decade I've worked across cloud-native platforms, applied AI, and large-scale payment systems. I care deeply about engineering culture, mentorship, and shipping work that holds up under real-world load.",
+    "When I'm not behind a keyboard you'll find me speaking at conferences, mentoring up-and-coming engineers, or writing about the craft of building software."
+  ],
+  "experience": [
+    {
+      "period": "2023 — Present",
+      "role": "Principal Engineer / Product Lead",
+      "org": "Company A",
+      "location": "Remote",
+      "summary": "Leading the platform group: API strategy, cloud architecture, and the rollout of AI-powered customer experiences."
+    },
+    {
+      "period": "2019 — 2023",
+      "role": "Senior Software Engineer",
+      "org": "Company B",
+      "location": "Remote",
+      "summary": "Architected the next-generation payments platform serving millions of daily transactions across multiple regions."
+    },
+    {
+      "period": "2015 — 2019",
+      "role": "Software Engineer",
+      "org": "Company C",
+      "location": "Remote",
+      "summary": "Built core services and tooling for a growing fintech, learning the craft of reliable, secure distributed systems."
+    }
+  ]
+}
