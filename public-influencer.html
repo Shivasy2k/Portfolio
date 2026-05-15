@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact</title>
-  <meta name="description" content="Get in touch — for speaking, collaboration, advisory, and mentorship inquiries." />
+  <title>Public Influencer — Talks &amp; Media</title>
+  <meta name="description" content="Invited talks, conference presentations, podcasts, and media features by Siva Bhoopathy." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,19 +33,59 @@
   <main>
     <section class="page-hero">
       <div class="container page-hero-inner">
-        <span class="eyebrow">Contact</span>
-        <h1>Let's talk.</h1>
-        <p>The quickest way to reach me is email. For speaking inquiries, please include the event, date, and audience.</p>
+        <span class="eyebrow">Public Influencer</span>
+        <h1>Talks &amp; Media</h1>
+        <p>
+          Invited talks, conference presentations, podcasts, and media features — a chronological view
+          of the conversations I've been part of around cloud-native architecture, applied AI, and engineering culture.
+        </p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container" style="max-width: 720px;">
-        <div class="hero-card" style="text-align: center;">
-          <h3>Send a note</h3>
-          <p style="margin-bottom: 20px;">I read every message and reply when I can.</p>
-          <a class="btn btn--primary" data-site="email" href="mailto:">Email me</a>
-          <div class="social-row" data-site="socials" style="justify-content: center; margin-top: 28px;"></div>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Speaking &amp; Sessions</span>
+          <h2>Selected talks and appearances</h2>
+          <p>Edit <code>data/talks.json</code> in the repo to add or update entries — the page renders from JSON on load.</p>
+        </div>
+        <div class="cards" data-render="talks">
+          <div class="loading">Loading talks…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt section--tight">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">In the Press</span>
+          <h2>Interviews &amp; features</h2>
+        </div>
+        <div class="interview-list" data-render="interviews">
+          <div class="loading">Loading interviews…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Timeline</span>
+          <h2>Conference &amp; invited talks</h2>
+          <p>A running record of speaking engagements over time.</p>
+        </div>
+        <ol class="timeline" data-render="conferences">
+          <li class="loading">Loading timeline…</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <h2>Looking for a speaker, panelist, or workshop lead?</h2>
+        <p>Happy to discuss talks, panels, podcasts, and mentorship sessions for product and engineering audiences.</p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn btn--primary" href="contact.html">Invite me to speak</a>
         </div>
       </div>
     </section>
@@ -72,6 +112,7 @@
           <ul style="display:grid; gap: 8px; list-style:none; padding:0; margin:0;">
             <li><a data-site="email" href="mailto:">Email</a></li>
           </ul>
+          <div class="social-row" data-site="socials" style="margin-top: 12px;"></div>
         </div>
       </div>
       <div class="footer-bottom">
