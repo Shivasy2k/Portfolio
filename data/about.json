@@ -1,30 +1,30 @@
 {
   "bio": [
-    "I'm Sivakumar Dhanasekar — a product and technology leader focused on building secure, intelligent systems that respect the people who use them.",
-    "Over the last decade I've worked across cloud-native platforms, applied AI, and large-scale payment systems. I care deeply about engineering culture, mentorship, and shipping work that holds up under real-world load.",
-    "When I'm not behind a keyboard you'll find me speaking at conferences, mentoring up-and-coming engineers, or writing about the craft of building software."
+    "I'm Sivakumar and I am Software Architect with over 18 years of experience at a major U.S. retailer and Fintech, my expertise is concentrated on architecting large-scale, 
+    secure, and resilient cloud solutions and hybrid environments. My background includes deep specialization in driving software development, artificial Intelligence, machine learning, 
+    cloud migration, cloud modernization, operational efficiency, data protection, optimizing performance across complex systems, ensuring strict adherence to compliance and business 
+    objectives.
+    
+    I can help you with
+
+    - Cloud Migration
+    - AI/ML Initiatives
+    - Software Development"
   ],
   "experience": [
     {
-      "period": "2023 — Present",
-      "role": "Principal Engineer / Product Lead",
-      "org": "Company A",
-      "location": "Remote",
+      "period": "2019 — Present",
+      "role": "Lead Developer / Product Lead",
+      "org": "Equifax Inc",
+      "location": "Atlanta, GA",
       "summary": "Leading the platform group: API strategy, cloud architecture, and the rollout of AI-powered customer experiences."
     },
     {
-      "period": "2019 — 2023",
+      "period": "2007 — 2019",
       "role": "Senior Software Engineer",
-      "org": "Company B",
-      "location": "Remote",
+      "org": "Tata Consultancy Services",
+      "location": "Chennai / Atlanta, GA",
       "summary": "Architected the next-generation payments platform serving millions of daily transactions across multiple regions."
-    },
-    {
-      "period": "2015 — 2019",
-      "role": "Software Engineer",
-      "org": "Company C",
-      "location": "Remote",
-      "summary": "Built core services and tooling for a growing fintech, learning the craft of reliable, secure distributed systems."
     }
   ]
 }
