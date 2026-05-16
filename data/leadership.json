@@ -1,0 +1,17 @@
+{
+  "intro": "Brief overview of your leadership philosophy and consulting focus areas.",
+  "engagements": [
+    {
+      "period": "2023 — Present",
+      "title": "Role / Position",
+      "org": "Organization Name",
+      "description": "Description of the engagement and your impact."
+    }
+  ],
+  "expertise": [
+    "Cloud Architecture",
+    "Team Leadership",
+    "Product Strategy",
+    "Engineering Culture"
+  ]
+}

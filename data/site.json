@@ -11,9 +11,14 @@
     { "label": "Email",    "url": "mailto:shivasy2k@gmail.com" }
   ],
   "footerNav": [
-    { "label": "Home",   "url": "index.html" },
-    { "label": "About",  "url": "about.html" },
-    { "label": "Talks & Media", "url": "public-influencer.html" },
-    { "label": "Contact","url": "contact.html" }
+    { "label": "Home",                     "url": "index.html" },
+    { "label": "About",                    "url": "about.html" },
+    { "label": "Invention & Innovation",   "url": "innovation.html" },
+    { "label": "Leadership & Consulting",  "url": "leadership_consulting.html" },
+    { "label": "Inspiration & Recognitions", "url": "inspiration_recognitions.html" },
+    { "label": "Public Influencer",        "url": "public-influencer.html" },
+    { "label": "Blogs",                    "url": "blogs.html" },
+    { "label": "Research",                 "url": "research.html" },
+    { "label": "Contact",                  "url": "contact.html" }
   ]
 }

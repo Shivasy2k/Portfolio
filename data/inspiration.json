@@ -1,0 +1,17 @@
+{
+  "recognitions": [
+    {
+      "title": "Award or Recognition Title",
+      "org": "Awarding Organization",
+      "year": "2024",
+      "description": "Brief description of the recognition.",
+      "link": ""
+    }
+  ],
+  "quotes": [
+    {
+      "text": "An inspiring quote or thought that drives your work.",
+      "source": "Source or Author"
+    }
+  ]
+}

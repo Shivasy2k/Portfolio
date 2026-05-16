@@ -246,6 +246,144 @@
     }
   }
 
+  /* ---------- Innovation ---------- */
+  async function renderInnovation() {
+    const grid = $("[data-render=innovation]");
+    if (!grid) return;
+    try {
+      const data = await loadJSON("innovation");
+      const items = Array.isArray(data) ? data : (data.items || []);
+      grid.innerHTML = items.length
+        ? items.map(item => {
+            const tagLabel = item.tag || "Innovation";
+            const yearTag = item.year ? `<span class="card-meta">${escapeHTML(item.year)} · ${escapeHTML(tagLabel)}</span>` : `<span class="card-meta">${escapeHTML(tagLabel)}</span>`;
+            const desc = item.description ? `<p class="card-desc">${escapeHTML(item.description)}</p>` : "";
+            const link = item.link ? `<a class="card-link" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer">View details</a>` : "";
+            return `<article class="card"><div class="card-media"><div class="card-media-fallback" aria-hidden="true">${escapeHTML(initials(item.title || "") || "•")}</div></div><div class="card-body">${yearTag}<h3 class="card-title">${escapeHTML(item.title || "")}</h3>${desc}${link}</div></article>`;
+          }).join("")
+        : `<div class="empty">No innovations listed yet — edit <code>data/innovation.json</code>.</div>`;
+    } catch (e) {
+      console.warn("[innovation] error:", e);
+      grid.innerHTML = `<div class="empty">Could not load <code>data/innovation.json</code>.</div>`;
+    }
+  }
+
+  /* ---------- Leadership & Consulting ---------- */
+  async function renderLeadership() {
+    const introEl = $("[data-render=leadership-intro]");
+    const engEl = $("[data-render=leadership-engagements]");
+    const expEl = $("[data-render=leadership-expertise]");
+    if (!introEl && !engEl && !expEl) return;
+    try {
+      const data = await loadJSON("leadership");
+      if (introEl && data.intro) introEl.textContent = data.intro;
+      if (engEl) {
+        const items = data.engagements || [];
+        engEl.innerHTML = items.length
+          ? items.map(it => `
+              <li class="timeline-item">
+                <span class="timeline-year">${escapeHTML(it.period || "")}</span>
+                <h3 class="timeline-title">${escapeHTML(it.title || "")}</h3>
+                <p class="timeline-meta">${escapeHTML(it.org || "")}</p>
+                ${it.description ? `<p>${escapeHTML(it.description)}</p>` : ""}
+              </li>`).join("")
+          : `<li class="empty">No engagements yet — edit <code>data/leadership.json</code>.</li>`;
+      }
+      if (expEl) {
+        const items = data.expertise || [];
+        expEl.innerHTML = items.map(e => `<span class="tag">${escapeHTML(e)}</span>`).join("");
+      }
+    } catch (e) {
+      console.warn("[leadership] error:", e);
+    }
+  }
+
+  /* ---------- Inspiration & Recognitions ---------- */
+  async function renderInspiration() {
+    const recEl = $("[data-render=recognitions]");
+    const quotesEl = $("[data-render=quotes]");
+    if (!recEl && !quotesEl) return;
+    try {
+      const data = await loadJSON("inspiration");
+      if (recEl) {
+        const items = data.recognitions || [];
+        recEl.innerHTML = items.length
+          ? items.map(it => `
+              <li class="timeline-item">
+                <span class="timeline-year">${escapeHTML(it.year || "")}</span>
+                <h3 class="timeline-title">${escapeHTML(it.title || "")}</h3>
+                <p class="timeline-meta">${escapeHTML(it.org || "")}</p>
+                ${it.description ? `<p>${escapeHTML(it.description)}</p>` : ""}
+                ${it.link ? `<a href="${safeURL(it.link)}" target="_blank" rel="noopener noreferrer">Learn more</a>` : ""}
+              </li>`).join("")
+          : `<li class="empty">No recognitions yet — edit <code>data/inspiration.json</code>.</li>`;
+      }
+      if (quotesEl) {
+        const items = data.quotes || [];
+        quotesEl.innerHTML = items.length
+          ? items.map(q => `
+              <article class="interview">
+                <div class="interview-date" style="font-size:2rem;color:var(--color-primary);line-height:1;">&ldquo;</div>
+                <div>
+                  <h4 style="font-style:italic;font-weight:400;">${escapeHTML(q.text || "")}</h4>
+                  ${q.source ? `<p style="color:var(--color-text-subtle);">— ${escapeHTML(q.source)}</p>` : ""}
+                </div>
+              </article>`).join("")
+          : `<div class="empty">No quotes yet — edit <code>data/inspiration.json</code>.</div>`;
+      }
+    } catch (e) {
+      console.warn("[inspiration] error:", e);
+    }
+  }
+
+  /* ---------- Blogs ---------- */
+  async function renderBlogs() {
+    const grid = $("[data-render=blogs]");
+    if (!grid) return;
+    try {
+      const data = await loadJSON("blogs");
+      const items = Array.isArray(data) ? data : (data.items || []);
+      grid.innerHTML = items.length
+        ? items.map(item => cardTemplate({ ...item, description: item.summary })).join("")
+        : `<div class="empty">No blog posts yet — edit <code>data/blogs.json</code>.</div>`;
+    } catch (e) {
+      console.warn("[blogs] error:", e);
+      grid.innerHTML = `<div class="empty">Could not load <code>data/blogs.json</code>.</div>`;
+    }
+  }
+
+  /* ---------- Research ---------- */
+  async function renderResearch() {
+    const profilesEl = $("[data-render=research-profiles]");
+    const pubsEl = $("[data-render=publications]");
+    if (!profilesEl && !pubsEl) return;
+    try {
+      const data = await loadJSON("research");
+      if (profilesEl) {
+        const profiles = data.profiles || [];
+        profilesEl.innerHTML = profiles
+          .filter(p => p.url)
+          .map(p => `<a class="social-pill" href="${safeURL(p.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(p.label)}</a>`)
+          .join("") || `<p style="color:var(--color-text-subtle);">Add your profile URLs to <code>data/research.json</code>.</p>`;
+      }
+      if (pubsEl) {
+        const items = data.publications || [];
+        pubsEl.innerHTML = items.length
+          ? items.map(it => `
+              <li class="timeline-item">
+                <span class="timeline-year">${escapeHTML(it.year || "")}</span>
+                <h3 class="timeline-title">${escapeHTML(it.title || "")}</h3>
+                <p class="timeline-meta">${escapeHTML(it.journal || "")}${it.authors ? " · " + escapeHTML(it.authors) : ""}</p>
+                ${it.doi ? `<p style="font-size:0.88rem;color:var(--color-text-subtle);">DOI: ${escapeHTML(it.doi)}</p>` : ""}
+                ${it.link ? `<a href="${safeURL(it.link)}" target="_blank" rel="noopener noreferrer">View paper</a>` : ""}
+              </li>`).join("")
+          : `<li class="empty">No publications yet — edit <code>data/research.json</code>.</li>`;
+      }
+    } catch (e) {
+      console.warn("[research] error:", e);
+    }
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     initNav();
@@ -253,5 +391,10 @@
     renderHome();
     renderTalks();
     renderAbout();
+    renderInnovation();
+    renderLeadership();
+    renderInspiration();
+    renderBlogs();
+    renderResearch();
   });
 })();
