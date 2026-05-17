@@ -1,10 +1,26 @@
 [
   {
-    "title": "Blog Post Title",
-    "date": "2024-01",
-    "summary": "Brief summary of what this blog post covers.",
-    "tag": "Cloud",
-    "link": "",
-    "cta": "Read post"
+    "title": "Practical RAG in the Real World: Agents, Retrieval, and Vertex AI",
+    "date": "2026-05",
+    "summary": "How Retrieval-Augmented Generation with AI agents transforms enterprise knowledge access by grounding AI responses in organizational documents — and why robust governance matters more than impressive demos.",
+    "tag": "AI / RAG",
+    "link": "https://www.linkedin.com/pulse/practical-rag-real-world-agents-retrieval-vertex-ai-dhanasekar-yv2pe/",
+    "cta": "Read on LinkedIn"
+  },
+  {
+    "title": "Stablecoin Fraud Detection in Cryptocurrency: How Algorithms Can Identify Risk Before It Becomes Loss",
+    "date": "2024",
+    "summary": "A deep dive into how algorithmic approaches can detect fraudulent patterns in stablecoin transactions and surface risk signals before they translate into financial loss.",
+    "tag": "Crypto / Security",
+    "link": "https://hackernoon.com/stablecoin-fraud-detection-in-cryptocurrency-how-algorithms-can-identify-risk-before-it-becomes-loss",
+    "cta": "Read on HackerNoon"
+  },
+  {
+    "title": "Beyond Hype: Building a Transparent Crypto Trading Bot That You Can Actually Trust",
+    "date": "2024-05",
+    "summary": "Why opaque black-box trading algorithms fail, and how to build a transparent, rule-based crypto trading bot with proper risk management, backtesting, and logging you can actually reason about.",
+    "tag": "Crypto / Engineering",
+    "link": "https://dev.to/sivakumar_dhanasekar/beyond-hype-building-a-transparent-crypto-trading-bot-that-you-can-actually-trust-5jg",
+    "cta": "Read on DEV"
   }
 ]
