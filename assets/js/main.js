@@ -298,42 +298,256 @@
     }
   }
 
-  /* ---------- Inspiration & Recognitions ---------- */
+  /* ---------- Inspiration & Recognitions (tabbed) ---------- */
+
+  // Renders a single certificate card.
+  // Supports image files (click-to-zoom in lightbox) and PDF files (click opens in new tab).
+  function certCardHTML(item) {
+    const path = (item.image || "").trim();
+    const hasFile = !!path;
+    const isPDF = /\.pdf($|\?|#)/i.test(path);
+    const fallback = escapeHTML(initials(item.title || "") || "•");
+
+    let thumbInner;
+    if (isPDF) {
+      const badge = escapeHTML(
+        (item.badge || item.title || "").replace(/^.*?\b([A-Z][A-Z0-9]{2,})\b.*$/, "$1") || "PDF"
+      );
+      thumbInner = `
+        <div class="cert-thumb-pdf" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+            <path fill="currentColor" d="M30 4H10a4 4 0 0 0-4 4v32a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V16L30 4z"/>
+            <path fill="rgba(255,255,255,0.55)" d="M30 4v10a2 2 0 0 0 2 2h10z"/>
+            <text x="24" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Inter, sans-serif">PDF</text>
+          </svg>
+          <span class="cert-thumb-pdf-label">${badge}</span>
+        </div>`;
+    } else if (hasFile) {
+      thumbInner = `
+        <img src="${safeURL(path)}" alt="${escapeHTML(item.alt || item.title || "")}" loading="lazy"
+             onerror="this.remove();this.parentElement.querySelector('.cert-thumb-fallback').style.display='grid';" />
+        <div class="cert-thumb-fallback" style="display:none;" aria-hidden="true">${fallback}</div>`;
+    } else {
+      thumbInner = `<div class="cert-thumb-fallback" aria-hidden="true">${fallback}</div>`;
+    }
+
+    // Attributes that drive click behavior
+    const cardAttrs = isPDF
+      ? `data-open-href="${safeURL(path)}"`
+      : `data-zoom-src="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
+
+    const hint = isPDF
+      ? `<span class="cert-hint">Open PDF ↗</span>`
+      : (item.link
+          ? `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`
+          : (hasFile ? `<span class="cert-hint">Click to enlarge</span>` : ""));
+
+    return `
+      <button type="button" class="cert-card${isPDF ? " cert-card--pdf" : ""}"
+              ${cardAttrs}
+              aria-label="${isPDF ? "Open PDF" : "View certificate"}: ${escapeHTML(item.title || "")}">
+        <div class="cert-thumb">${thumbInner}</div>
+        <div class="cert-body">
+          <h3 class="cert-title">${escapeHTML(item.title || "")}</h3>
+          ${item.org  ? `<p class="cert-meta">${escapeHTML(item.org)}</p>` : ""}
+          ${item.year ? `<p class="cert-meta">${escapeHTML(item.year)}</p>` : ""}
+          ${hint}
+        </div>
+      </button>`;
+  }
+
+  // Renders an article row (DZone / Dev.to / TDAN / Medium etc.)
+  function articleRowHTML(item) {
+    const outlet = (item.outlet || "").toString();
+    const outletKey = outlet.toLowerCase().replace(/[^a-z]/g, "");
+    const badge = outlet.slice(0, 3).toUpperCase() || "ART";
+    return `
+      <article class="article-row">
+        <div class="article-outlet ${outletKey}" aria-hidden="true">${escapeHTML(badge)}</div>
+        <div class="article-body">
+          <h4>${escapeHTML(item.title || "")}</h4>
+          <p>${escapeHTML(outlet)}${item.summary ? " — " + escapeHTML(item.summary) : ""}</p>
+        </div>
+        ${item.link
+          ? `<a class="btn btn--ghost" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer">Read ↗</a>`
+          : ""}
+      </article>`;
+  }
+
+  function panelContentHTML(tab) {
+    const items = Array.isArray(tab.items) ? tab.items : [];
+    if (!items.length) {
+      return `<div class="empty">No entries yet in <strong>${escapeHTML(tab.label || "this tab")}</strong> — add some to <code>data/inspiration.json</code>.</div>`;
+    }
+    if (tab.type === "articles") {
+      return `<div class="article-list">${items.map(articleRowHTML).join("")}</div>`;
+    }
+    // default: image / certificate gallery
+    return `<div class="cert-grid">${items.map(certCardHTML).join("")}</div>`;
+  }
+
+  function buildTabs(root, tabs) {
+    const listId = "insp-tablist";
+    const navHTML = `
+      <div class="tabs" role="region" aria-label="Inspiration & Recognitions sections">
+        <div class="container">
+          <ul id="${listId}" class="tablist" role="tablist">
+            ${tabs.map((t, i) => `
+              <li role="presentation">
+                <button type="button" class="tab-btn"
+                        role="tab"
+                        id="tab-${escapeHTML(t.id)}"
+                        aria-controls="panel-${escapeHTML(t.id)}"
+                        aria-selected="${i === 0 ? "true" : "false"}"
+                        tabindex="${i === 0 ? "0" : "-1"}"
+                        data-tab="${escapeHTML(t.id)}">
+                  <span>${escapeHTML(t.label || t.id)}</span>
+                  ${Array.isArray(t.items) ? `<span class="tab-count">${t.items.length}</span>` : ""}
+                </button>
+              </li>`).join("")}
+          </ul>
+        </div>
+      </div>
+      <div class="container">
+        <div class="tab-panels">
+          ${tabs.map((t, i) => `
+            <section class="tab-panel ${i === 0 ? "is-active" : ""}"
+                     id="panel-${escapeHTML(t.id)}"
+                     role="tabpanel"
+                     aria-labelledby="tab-${escapeHTML(t.id)}"
+                     ${i === 0 ? "" : "hidden"}>
+              <div class="tab-panel-head">
+                <h2>${escapeHTML(t.heading || t.label || "")}</h2>
+                ${t.description ? `<p>${escapeHTML(t.description)}</p>` : ""}
+              </div>
+              ${t.type !== "articles"
+                ? `<p class="tab-hint">Click a card to view the certificate full-size.</p>`
+                : ""}
+              ${panelContentHTML(t)}
+            </section>`).join("")}
+        </div>
+      </div>
+    `;
+    root.innerHTML = navHTML;
+
+    // Activate handler
+    const buttons = $$(".tab-btn", root);
+    const panels  = $$(".tab-panel", root);
+    function activate(id, { focus = false } = {}) {
+      buttons.forEach(btn => {
+        const on = btn.dataset.tab === id;
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+        btn.tabIndex = on ? 0 : -1;
+        if (on && focus) btn.focus();
+      });
+      panels.forEach(p => {
+        const on = p.id === `panel-${id}`;
+        p.classList.toggle("is-active", on);
+        if (on) p.removeAttribute("hidden");
+        else    p.setAttribute("hidden", "");
+      });
+      if (history.replaceState) {
+        history.replaceState(null, "", `#${id}`);
+      }
+    }
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => activate(btn.dataset.tab));
+    });
+    // Keyboard nav
+    root.addEventListener("keydown", (e) => {
+      if (!e.target.classList.contains("tab-btn")) return;
+      const ids = buttons.map(b => b.dataset.tab);
+      const i = ids.indexOf(e.target.dataset.tab);
+      let next = i;
+      if (e.key === "ArrowRight") next = (i + 1) % ids.length;
+      else if (e.key === "ArrowLeft") next = (i - 1 + ids.length) % ids.length;
+      else if (e.key === "Home") next = 0;
+      else if (e.key === "End")  next = ids.length - 1;
+      else return;
+      e.preventDefault();
+      activate(ids[next], { focus: true });
+    });
+    // Deep-link via URL hash
+    const initial = (location.hash || "").replace("#", "");
+    if (initial && buttons.some(b => b.dataset.tab === initial)) {
+      activate(initial);
+    }
+  }
+
   async function renderInspiration() {
-    const recEl = $("[data-render=recognitions]");
-    const quotesEl = $("[data-render=quotes]");
-    if (!recEl && !quotesEl) return;
+    const root = $("[data-render=inspiration-tabs]");
+    if (!root) return;
     try {
       const data = await loadJSON("inspiration");
-      if (recEl) {
-        const items = data.recognitions || [];
-        recEl.innerHTML = items.length
-          ? items.map(it => `
-              <li class="timeline-item">
-                <span class="timeline-year">${escapeHTML(it.year || "")}</span>
-                <h3 class="timeline-title">${escapeHTML(it.title || "")}</h3>
-                <p class="timeline-meta">${escapeHTML(it.org || "")}</p>
-                ${it.description ? `<p>${escapeHTML(it.description)}</p>` : ""}
-                ${it.link ? `<a href="${safeURL(it.link)}" target="_blank" rel="noopener noreferrer">Learn more</a>` : ""}
-              </li>`).join("")
-          : `<li class="empty">No recognitions yet — edit <code>data/inspiration.json</code>.</li>`;
+      const tabs = Array.isArray(data.tabs) ? data.tabs : [];
+      if (!tabs.length) {
+        root.innerHTML = `<div class="container"><div class="empty">No tabs configured — edit <code>data/inspiration.json</code>.</div></div>`;
+        return;
       }
-      if (quotesEl) {
-        const items = data.quotes || [];
-        quotesEl.innerHTML = items.length
-          ? items.map(q => `
-              <article class="interview">
-                <div class="interview-date" style="font-size:2rem;color:var(--color-primary);line-height:1;">&ldquo;</div>
-                <div>
-                  <h4 style="font-style:italic;font-weight:400;">${escapeHTML(q.text || "")}</h4>
-                  ${q.source ? `<p style="color:var(--color-text-subtle);">— ${escapeHTML(q.source)}</p>` : ""}
-                </div>
-              </article>`).join("")
-          : `<div class="empty">No quotes yet — edit <code>data/inspiration.json</code>.</div>`;
-      }
+      buildTabs(root, tabs);
     } catch (e) {
       console.warn("[inspiration] error:", e);
+      root.innerHTML = `<div class="container"><div class="empty">Could not load <code>data/inspiration.json</code>.</div></div>`;
     }
+  }
+
+  /* ---------- Lightbox (image zoom for certificate gallery) ---------- */
+  function initLightbox() {
+    // One global lightbox element, lazily created on first open
+    let box;
+    function getBox() {
+      if (box) return box;
+      box = document.createElement("div");
+      box.className = "lightbox";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-modal", "true");
+      box.setAttribute("aria-label", "Image preview");
+      box.innerHTML = `
+        <figure class="lightbox-figure">
+          <button type="button" class="lightbox-close" aria-label="Close preview">×</button>
+          <img alt="" />
+          <figcaption class="lightbox-caption"></figcaption>
+        </figure>
+      `;
+      document.body.appendChild(box);
+      box.addEventListener("click", (e) => {
+        if (e.target === box || e.target.classList.contains("lightbox-close")) close();
+      });
+      return box;
+    }
+    function open(src, caption) {
+      if (!src) return;
+      const b = getBox();
+      b.querySelector("img").src = src;
+      b.querySelector("img").alt = caption || "";
+      b.querySelector(".lightbox-caption").textContent = caption || "";
+      b.classList.add("is-open");
+      document.body.classList.add("lightbox-open");
+    }
+    function close() {
+      if (!box) return;
+      box.classList.remove("is-open");
+      document.body.classList.remove("lightbox-open");
+    }
+    document.addEventListener("click", (e) => {
+      const card = e.target.closest(".cert-card");
+      if (!card) return;
+      // Don't fire on inner link clicks
+      if (e.target.closest("a")) return;
+      // PDF cards: open the file in a new tab
+      const href = card.dataset.openHref;
+      if (href) {
+        window.open(href, "_blank", "noopener,noreferrer");
+        return;
+      }
+      // Image cards: open in the lightbox
+      const src = card.dataset.zoomSrc;
+      const cap = card.dataset.zoomCaption || "";
+      if (src) open(src, cap);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
   }
 
   /* ---------- Blogs ---------- */
@@ -387,6 +601,7 @@
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     initNav();
+    initLightbox();
     applySite();
     renderHome();
     renderTalks();

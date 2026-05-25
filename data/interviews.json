@@ -1,25 +1,3 @@
 {
-  "items": [
-    {
-      "date": "Feb 2026",
-      "title": "Top Trends Shaping the Next Decade of Product",
-      "outlet": "Tech Leaders Weekly",
-      "summary": "A long-form conversation on AI adoption, platform thinking, and the new shape of engineering teams.",
-      "link": "#"
-    },
-    {
-      "date": "Nov 2025",
-      "title": "How Mentorship Compounds in Engineering Careers",
-      "outlet": "Build Better Podcast",
-      "summary": "Practical advice on finding mentors, becoming one, and avoiding the most common pitfalls on both sides.",
-      "link": "#"
-    },
-    {
-      "date": "Aug 2025",
-      "title": "The Quiet Discipline Behind Reliable Systems",
-      "outlet": "Engineering Spotlight",
-      "summary": "Lessons learned from running production payment systems with strict SLOs and zero-downtime expectations.",
-      "link": "#"
-    }
-  ]
+  "items": []
 }

@@ -1,58 +1,13 @@
 {
   "items": [
     {
-      "title": "Beyond Rule Engines: Real-Time Fraud Detection with Graph AI and APIs",
+      "title": "Beyond Rule Engines — Real-Time Fraud Detection with Graph AI and APIs",
       "tag": "Conference Talk",
-      "description": "Agentic APIs for Risk Management, Fraud Detection, Algorithmic Trading & Regulatory Technology",
+      "description": "Agentic APIs for risk management, fraud detection, and regtech.",
       "image": "assets/img/API_Days_poster.png",
-      "alt": "Beyond Rule Engines: Real-Time Fraud Detection with Graph AI and APIs",
+      "alt": "Beyond Rule Engines — Real-Time Fraud Detection with Graph AI and APIs",
       "link": "https://www.apidays.global/events/new-york",
       "cta": "View session"
-    },
-    {
-      "title": "Cloud-Native Platforms for Modern Teams",
-      "tag": "Conference Talk",
-      "description": "A pragmatic look at platform engineering — golden paths, internal developer portals, and the metrics that actually matter.",
-      "image": "",
-      "alt": "Cloud-Native Platforms",
-      "link": "#",
-      "cta": "View session"
-    },
-    {
-      "title": "From Prototype to Production with LLMs",
-      "tag": "Workshop",
-      "description": "Hands-on workshop covering retrieval, evaluation harnesses, guardrails, and cost-aware deployment for generative AI features.",
-      "image": "",
-      "alt": "Prototype to Production with LLMs",
-      "link": "#",
-      "cta": "Workshop details"
-    },
-    {
-      "title": "Mentoring in Tech: Building People, Not Just Products",
-      "tag": "Panel",
-      "description": "Panel discussion on structured mentorship programs, sponsor vs. mentor distinctions, and growing engineering leaders.",
-      "image": "",
-      "alt": "Mentoring panel",
-      "link": "#",
-      "cta": "Watch replay"
-    },
-    {
-      "title": "Securing Payment APIs at Scale",
-      "tag": "Invited Talk",
-      "description": "Threat modeling, tokenization, and zero-trust patterns for high-volume payment platforms.",
-      "image": "",
-      "alt": "Securing Payment APIs",
-      "link": "#",
-      "cta": "View slides"
-    },
-    {
-      "title": "Resilient Kubernetes for Peak Traffic",
-      "tag": "Meetup",
-      "description": "Real-world patterns for HPA tuning, multi-AZ failover, and graceful degradation under unpredictable load.",
-      "image": "",
-      "alt": "Resilient Kubernetes",
-      "link": "#",
-      "cta": "Read writeup"
     }
   ]
 }

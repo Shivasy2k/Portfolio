@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inspiration &amp; Recognitions</title>
-  <meta name="description" content="Awards, recognitions, and inspiration from the work of Sivakumar Dhanasekar." />
+  <meta name="description" content="Certifications, peer-review service, memberships, publications, articles, and mentorship — organized by category." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -36,37 +36,27 @@
     <section class="page-hero">
       <div class="container page-hero-inner">
         <span class="eyebrow">Inspiration &amp; Recognitions</span>
-        <h1>Recognized Work &amp; Guiding Principles</h1>
-        <p>Awards, honors, and the ideas that inspire the way I build, lead, and share.</p>
+        <h1>Recognized work, peer-review service, and the credentials behind it.</h1>
+        <p>
+          Professional certifications, formal recognitions, memberships, mentoring contributions, and published work —
+          organized into tabs so each category is easy to browse.
+        </p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Recognitions</span>
-          <h2>Awards &amp; Honors</h2>
+    <!-- All tab navigation, panels, and content render here from data/inspiration.json -->
+    <section class="section section--tight" style="padding-top: 0;">
+      <div data-render="inspiration-tabs">
+        <div class="container">
+          <div class="loading">Loading recognitions…</div>
         </div>
-        <ol class="timeline" data-render="recognitions">
-          <li class="loading">Loading recognitions…</li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Inspiration</span>
-          <h2>Thoughts &amp; Guiding Quotes</h2>
-        </div>
-        <div class="interview-list" data-render="quotes"></div>
       </div>
     </section>
 
     <section class="cta-band">
       <div class="container">
-        <h2>Inspired to collaborate or connect?</h2>
-        <p>Always happy to share ideas, mentor, or explore new projects together.</p>
+        <h2>Have a paper to review or a session to host?</h2>
+        <p>Always happy to serve as a TPC member, peer reviewer, panelist, or mentor for emerging engineers.</p>
         <div class="hero-actions" style="justify-content:center;">
           <a class="btn btn--primary" href="contact.html">Reach out</a>
         </div>

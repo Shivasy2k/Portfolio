@@ -1,17 +1,69 @@
 {
-  "recognitions": [
+  "tabs": [
     {
-      "title": "Award or Recognition Title",
-      "org": "Awarding Organization",
-      "year": "2024",
-      "description": "Brief description of the recognition.",
-      "link": ""
-    }
-  ],
-  "quotes": [
+      "id": "mentorship",
+      "label": "Mentorship & Organizer",
+      "heading": "Mentorship & Organizer",
+      "description": "Mentoring credentials, community-organizer roles, and student/industry talks.",
+      "type": "certs",
+      "items": []
+    },
     {
-      "text": "An inspiring quote or thought that drives your work.",
-      "source": "Source or Author"
+      "id": "memberships",
+      "label": "Memberships",
+      "heading": "Fellow & Senior Memberships",
+      "description": "Senior and fellow-grade memberships across IEEE and allied professional societies.",
+      "type": "certs",
+      "items": []
+    },
+    {
+      "id": "peer-review",
+      "label": "Peer Review",
+      "heading": "Technical Program Committee & Peer Review",
+      "description": "Reviewer and TPC roles for IEEE-affiliated conferences. Click any card to open the certificate PDF.",
+      "type": "certs",
+      "items": [
+        {
+          "title": "AAIML — Reviewer",
+          "org": "Conference on Applied AI & ML",
+          "year": "2025",
+          "badge": "AAIML",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_AAIML.pdf",
+          "alt": "AAIML — Reviewer",
+          "link": ""
+        }
+      ]
+    },
+    {
+      "id": "publications",
+      "label": "Publications",
+      "heading": "Peer-Reviewed Publication Certificates",
+      "description": "Author certificates for IEEE conferences and indexed journals.",
+      "type": "certs",
+      "items": []
+    },
+    {
+      "id": "articles",
+      "label": "Articles",
+      "heading": "Published Articles",
+      "description": "Technical writing on DZone, Dev.to, TDAN, Medium, and other outlets.",
+      "type": "articles",
+      "items": [
+        {
+          "title": "Secure Log Tokenization Using Aho–Corasick for High-Volume Systems",
+          "outlet": "DZone",
+          "summary": "Approved technical article on high-throughput tokenization.",
+          "link": "https://dzone.com/"
+        }
+      ]
+    },
+    {
+      "id": "certifications",
+      "label": "Certifications",
+      "heading": "Professional Certifications",
+      "description": "Vendor and industry certifications earned over the years.",
+      "type": "certs",
+      "items": []
     }
   ]
 }

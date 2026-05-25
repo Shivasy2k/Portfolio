@@ -1,0 +1,8 @@
+# Tab order on the Inspiration & Recognitions page.
+# One folder name per line. Lines starting with # are ignored.
+mentorship
+memberships
+peer-review
+publications
+articles
+certifications

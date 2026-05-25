@@ -1,171 +1,188 @@
 # Siva — Portfolio Site
 
-A clean, professional, static portfolio site inspired by the structure of
-[bala-kumaran.com/public-influencer.html](https://www.bala-kumaran.com/public-influencer.html),
-rebuilt with a different palette (Indigo + Teal) and typography (Inter + Space Grotesk).
+Static portfolio site (no framework, no build server, no database). You author
+your content as plain files in `/content`, a small Node script builds them into
+`/data/*.json`, and the site renders them in the browser. GitHub Pages
+re-deploys automatically on every push.
 
-All page content is driven by JSON files in [`/data`](./data). Edit the JSON, commit, and the
-live site updates automatically via GitHub Pages.
+> **TL;DR for authoring:** drop a file in `/content/<section>/`, commit, push.
+> The site updates itself within ~60 seconds.
 
 ---
 
-## ✨ What's here
+## 🧠 Mental model
+
+```
+content/   ← you edit this  (markdown, txt, pdfs, images)
+    │
+    │  scripts/build.js runs on push (GitHub Actions)
+    ▼
+data/      ← auto-generated JSON, do NOT edit by hand
+    │
+    │  loaded by the browser at runtime
+    ▼
+*.html / assets/js/main.js  ← renders the site
+```
+
+That's the whole pipeline.
+
+---
+
+## 📁 Repo layout
 
 ```
 .
-├── index.html          # Home
-├── talks.html          # Talks & Media (the public-influencer equivalent)
-├── about.html          # About + experience timeline
-├── contact.html        # Contact
+├── content/                  ← AUTHOR HERE
+│   ├── site/                   brand name, socials, footer links
+│   ├── home/                   hero stats + highlights
+│   ├── about/                  bio + experience timeline
+│   ├── talks/                  Talks & Media cards
+│   ├── interviews/             interview rows
+│   ├── conferences/            conference timeline
+│   ├── innovation/             Invention & Innovation page
+│   ├── blogs/                  Blogs page
+│   ├── leadership/             Leadership & Consulting page
+│   ├── research/               Research page
+│   └── inspiration/            Inspiration & Recognitions (tabbed)
+│       ├── _tabs.txt             tab order
+│       └── <tab>/                one folder per tab — drop files here
+├── data/                     ← auto-generated JSON (do not edit)
 ├── assets/
-│   ├── css/style.css   # Theme — single stylesheet
-│   ├── js/main.js      # Dynamic content loader
-│   └── img/            # Drop images for talks/cards here
-├── data/
-│   ├── site.json       # Brand, contact, social links, footer nav
-│   ├── home.json       # Hero highlights + stats
-│   ├── about.json      # Bio + experience entries
-│   ├── talks.json      # Talks & media cards
-│   ├── interviews.json # Interview rows
-│   └── conferences.json# Conference & invited talks timeline
-├── .github/workflows/pages.yml  # Auto-deploy to GitHub Pages
-├── .nojekyll           # Tells Pages to skip Jekyll processing
-└── README.md
+│   ├── css/style.css         theme (Indigo + Teal, Inter + Space Grotesk)
+│   ├── js/main.js            dynamic content loader + tab logic + lightbox
+│   └── img/                  shared images you reference from frontmatter
+├── scripts/
+│   └── build.js              the only build step — zero dependencies
+├── *.html                    one file per page
+├── .github/workflows/
+│   └── pages.yml             builds + deploys on push to main
+├── package.json              just to give you `npm run build` / `npm run dev`
+└── README.md                 this file
 ```
+
+Every folder in `/content` has its own README explaining the exact file format.
 
 ---
 
-## 🚀 Deploy to GitHub Pages (5 minutes)
+## ✍️ Adding content — by section
 
-The repo is `Shivasy2k/Portfolio` and the branch is `main`.
+| To update… | Edit / drop into | Format |
+|---|---|---|
+| Your name, role, email, social links | `content/site/` | `profile.md`, `socials.txt` |
+| Homepage stats / hero highlights | `content/home/` | `stats.txt`, `highlights.txt` |
+| Bio + work history | `content/about/` | `bio.md`, `experience/*.md` |
+| Conference / podcast appearances | `content/talks/` | one `.md` per talk |
+| Press / interviews | `content/interviews/` | one `.md` per interview |
+| Conference timeline | `content/conferences/` | one `.md` per event |
+| Patents / inventions | `content/innovation/` | one `.md` per item |
+| Blog posts | `content/blogs/` | one `.md` per post |
+| Leadership / consulting | `content/leadership/` | `intro.md`, `expertise.txt`, `engagements/*.md` |
+| Academic profiles / papers | `content/research/` | `profiles.txt`, `publications/*.md` |
+| Certificates, awards, articles (tabbed) | `content/inspiration/<tab>/` | drop PDFs/images or `.md` files |
 
-1. **Create the repo on GitHub** (if not already): https://github.com/new
-   - Name: `Portfolio`
-   - Owner: `Shivasy2k`
-   - Visibility: Public (Pages needs this on free plans)
+For the exact frontmatter fields each `.md` accepts, open the `README.md` inside
+the relevant folder. They're short and copy-pasteable.
 
-2. **Push these files to the `main` branch:**
+### Example: add a new talk
 
+1. Create `content/talks/2026-06-keynote.md`:
+   ```md
+   ---
+   title: Designing Trust into AI Products
+   tag: Keynote
+   description: How product teams bake transparency and oversight into AI features.
+   link: https://example.com/event
+   ---
+   ```
+2. `git add content/talks/2026-06-keynote.md && git commit -m "Add June keynote" && git push`
+3. Done. The Actions workflow builds, deploys, and the new card appears.
+
+### Example: add a peer-review certificate
+
+1. Drop the PDF: `content/inspiration/peer-review/Reviewer_Certificate_NEWCONF.pdf`
+2. (Optional) Override the auto-derived title with a sibling JSON:
+   `content/inspiration/peer-review/Reviewer_Certificate_NEWCONF.pdf.meta.json`
+   ```json
+   { "title": "NEWCONF — Reviewer", "org": "IEEE NEWCONF 2026", "badge": "NEWCONF" }
+   ```
+3. Commit & push. The tile appears in the Peer Review tab. Click opens the PDF.
+
+---
+
+## 🛠️ Running locally
+
+```bash
+# Generate /data from /content
+npm run build
+
+# Serve the site on http://localhost:8080
+npm run serve
+
+# Or both at once
+npm run dev
+```
+
+Node 18+ required. No npm dependencies to install.
+
+---
+
+## 🚀 Deploying
+
+The first time only:
+
+1. Create the repo `Shivasy2k/Portfolio` on GitHub.
+2. `cd` into this folder, then:
    ```bash
-   cd "path/to/this/folder"
    git init -b main
    git add .
    git commit -m "Initial portfolio site"
    git remote add origin https://github.com/Shivasy2k/Portfolio.git
    git push -u origin main
    ```
+3. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
-3. **Enable Pages with GitHub Actions:**
-   - On GitHub, go to **Settings → Pages**
-   - Under **Build and deployment → Source**, pick **GitHub Actions**
-   - That's it — the workflow in `.github/workflows/pages.yml` does the rest.
+After that, every `git push` to `main` rebuilds and redeploys automatically.
 
-4. **Visit your site:**
-   - **https://shivasy2k.github.io/Portfolio/**
-   - First deploy can take ~1–2 minutes. Re-deploys happen on every push to `main`.
+Live URL: **https://shivasy2k.github.io/Portfolio/**
 
 ---
 
-## ✏️ Updating content
+## 🧩 How a single tab works (Inspiration & Recognitions)
 
-All visible content lives in `/data/*.json`. Open, edit, commit, push — the site refreshes.
+The tabbed Inspiration page is the most flexible piece. Each tab is a folder
+under `content/inspiration/`:
 
-### Add a new talk
-
-Open `data/talks.json` and add a new object to the `items` array:
-
-```json
-{
-  "title": "How we shipped feature X",
-  "tag": "Conference Talk",
-  "description": "One-sentence summary of the talk.",
-  "image": "assets/img/my-talk-cover.jpg",
-  "alt": "Speaking at Event Y",
-  "link": "https://event-page.example.com",
-  "cta": "View session"
-}
+```
+content/inspiration/
+├── _tabs.txt                 ← controls order (optional)
+└── peer-review/
+    ├── _config.json          ← label/heading/description/type (optional)
+    ├── Reviewer_Certificate_AAIML.pdf
+    └── Reviewer_Certificate_ICCR.pdf
 ```
 
-- `image` is optional. Leave it blank (`""`) and the card shows a clean lettered fallback.
-- Put image files in `assets/img/` and reference them as `assets/img/filename.jpg`.
+The build script:
+- Reads `_tabs.txt` for tab order (alphabetical if missing).
+- For each tab folder, reads `_config.json` for friendly labels.
+- For `type: "certs"` tabs, walks any `.pdf` / `.png` / `.jpg` and turns each
+  into a card. Derives a friendly title and acronym badge from the filename.
+- For `type: "articles"` tabs, walks any `.md` and reads frontmatter
+  (`title`, `outlet`, `summary`, `link`).
 
-### Add an interview / media feature
-
-Edit `data/interviews.json`:
-
-```json
-{
-  "date": "Jan 2026",
-  "title": "Interview title here",
-  "outlet": "Publication name",
-  "summary": "One-line teaser.",
-  "link": "https://outlet.example.com/article"
-}
-```
-
-### Add a conference talk to the timeline
-
-Edit `data/conferences.json`:
-
-```json
-{
-  "year": "2026",
-  "title": "Talk title",
-  "venue": "Conference Name",
-  "format": "Keynote",
-  "link": "https://conference.example.com"
-}
-```
-
-### Update bio / experience
-
-Edit `data/about.json`. The `bio` field accepts either a single string or an array of paragraphs.
-
-### Update name, social links, contact email
-
-Edit `data/site.json`. All pages pick up changes automatically.
+To add a brand-new tab, just `mkdir content/inspiration/awards/`, drop files in,
+and (optionally) add `_config.json` + a line in `_tabs.txt`.
 
 ---
 
 ## 🎨 Theme
 
-Designed to look 100% professional and intentionally different from the reference site (which uses
-a dark background with amber/serif type).
-
-- **Background:** clean white with subtle indigo/teal gradient washes
+- **Background:** clean white with subtle indigo / teal washes
 - **Primary:** Indigo `#4F46E5`
 - **Accent:** Teal `#0D9488`
 - **Headings:** Space Grotesk
 - **Body:** Inter
 
-To tweak colors or spacing, the design tokens live at the top of [`assets/css/style.css`](./assets/css/style.css)
-inside `:root { ... }`.
-
----
-
-## 🧪 Run locally
-
-Because the pages fetch JSON via `fetch()`, you need a tiny local server (opening `index.html`
-directly via `file://` won't work in most browsers).
-
-```bash
-# Python
-python3 -m http.server 8080
-
-# OR Node
-npx serve .
-```
-
-Then visit http://localhost:8080.
-
----
-
-## 📦 Tech notes
-
-- Pure HTML / CSS / vanilla JS. No build step. No framework. No bundler.
-- Fonts loaded from Google Fonts.
-- Site is fully responsive, accessible-friendly, and prints cleanly.
-- All user-supplied JSON values are HTML-escaped before render to prevent injection.
+Tokens live at the top of [`assets/css/style.css`](./assets/css/style.css).
 
 ---
 

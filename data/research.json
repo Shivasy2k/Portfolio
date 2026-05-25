@@ -1,17 +1,4 @@
 {
-  "profiles": [
-    { "label": "Google Scholar", "url": "" },
-    { "label": "ORCID", "url": "" },
-    { "label": "ResearchGate", "url": "" }
-  ],
-  "publications": [
-    {
-      "title": "Publication Title",
-      "journal": "Journal or Conference Name",
-      "year": "2024",
-      "authors": "Sivakumar Dhanasekar et al.",
-      "link": "",
-      "doi": ""
-    }
-  ]
+  "profiles": [],
+  "publications": []
 }

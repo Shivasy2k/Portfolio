@@ -5,20 +5,59 @@
   "tagline": "Building secure, intelligent products at scale",
   "email": "shivasy2k@gmail.com",
   "socials": [
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/sivakumar-dhanasekar/" },
-    { "label": "GitHub",   "url": "https://github.com/Shivasy2k" },
-    { "label": "X / Twitter", "url": "https://x.com/" },
-    { "label": "Email",    "url": "mailto:sivakumar.dhanasekar@ieee.org" }
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/sivakumar-dhanasekar/"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/Shivasy2k"
+    },
+    {
+      "label": "X / Twitter",
+      "url": "https://x.com/"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:sivakumar.dhanasekar@ieee.org"
+    }
   ],
   "footerNav": [
-    { "label": "Home",                     "url": "index.html" },
-    { "label": "About",                    "url": "about.html" },
-    { "label": "Invention & Innovation",   "url": "innovation.html" },
-    { "label": "Leadership & Consulting",  "url": "leadership_consulting.html" },
-    { "label": "Inspiration & Recognitions", "url": "inspiration_recognitions.html" },
-    { "label": "Public Influencer",        "url": "public-influencer.html" },
-    { "label": "Blogs",                    "url": "blogs.html" },
-    { "label": "Research",                 "url": "research.html" },
-    { "label": "Contact",                  "url": "contact.html" }
+    {
+      "label": "Home",
+      "url": "index.html"
+    },
+    {
+      "label": "About",
+      "url": "about.html"
+    },
+    {
+      "label": "Invention & Innovation",
+      "url": "innovation.html"
+    },
+    {
+      "label": "Leadership & Consulting",
+      "url": "leadership_consulting.html"
+    },
+    {
+      "label": "Inspiration & Recognitions",
+      "url": "inspiration_recognitions.html"
+    },
+    {
+      "label": "Public Influencer",
+      "url": "public-influencer.html"
+    },
+    {
+      "label": "Blogs",
+      "url": "blogs.html"
+    },
+    {
+      "label": "Research",
+      "url": "research.html"
+    },
+    {
+      "label": "Contact",
+      "url": "contact.html"
+    }
   ]
 }
