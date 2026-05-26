@@ -313,14 +313,12 @@
       const badge = escapeHTML(
         (item.badge || item.title || "").replace(/^.*?\b([A-Z][A-Z0-9]{2,})\b.*$/, "$1") || "PDF"
       );
+      // Canvas gets filled by renderPdfThumb() after the card scrolls into view.
+      // While loading, the skeleton (the gradient background of .cert-thumb-pdf) shows through.
       thumbInner = `
         <div class="cert-thumb-pdf" aria-hidden="true">
-          <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
-            <path fill="currentColor" d="M30 4H10a4 4 0 0 0-4 4v32a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V16L30 4z"/>
-            <path fill="rgba(255,255,255,0.55)" d="M30 4v10a2 2 0 0 0 2 2h10z"/>
-            <text x="24" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Inter, sans-serif">PDF</text>
-          </svg>
-          <span class="cert-thumb-pdf-label">${badge}</span>
+          <canvas class="cert-thumb-pdf-canvas" data-pdf-src="${safeURL(path)}"></canvas>
+          <span class="cert-thumb-pdf-badge">${badge}</span>
         </div>`;
     } else if (hasFile) {
       thumbInner = `
@@ -333,11 +331,11 @@
 
     // Attributes that drive click behavior
     const cardAttrs = isPDF
-      ? `data-open-href="${safeURL(path)}"`
+      ? `data-open-href="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`
       : `data-zoom-src="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
 
     const hint = isPDF
-      ? `<span class="cert-hint">Open PDF ↗</span>`
+      ? `<span class="cert-hint">Click to enlarge</span>`
       : (item.link
           ? `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`
           : (hasFile ? `<span class="cert-hint">Click to enlarge</span>` : ""));
@@ -485,15 +483,78 @@
         return;
       }
       buildTabs(root, tabs);
+      initPdfThumbs(root); // render real PDF thumbnails into the cert cards
     } catch (e) {
       console.warn("[inspiration] error:", e);
       root.innerHTML = `<div class="container"><div class="empty">Could not load <code>data/inspiration.json</code>.</div></div>`;
     }
   }
 
-  /* ---------- Lightbox (image zoom for certificate gallery) ---------- */
+  /* ---------- PDF.js loader + thumbnail renderer ---------- */
+  const PDFJS_VERSION = "3.11.174";
+  const PDFJS_BASE = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}`;
+  let pdfJsPromise = null;
+  function loadPdfJs() {
+    if (pdfJsPromise) return pdfJsPromise;
+    pdfJsPromise = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = `${PDFJS_BASE}/pdf.min.js`;
+      s.async = true;
+      s.onload = () => {
+        if (!window.pdfjsLib) return reject(new Error("pdf.js failed to expose pdfjsLib"));
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_BASE}/pdf.worker.min.js`;
+        resolve(window.pdfjsLib);
+      };
+      s.onerror = () => reject(new Error("pdf.js script failed to load"));
+      document.head.appendChild(s);
+    });
+    return pdfJsPromise;
+  }
+
+  async function renderPdfThumb(canvas) {
+    const url = canvas.dataset.pdfSrc;
+    if (!url) return;
+    try {
+      const lib = await loadPdfJs();
+      const pdf = await lib.getDocument({ url, disableRange: false }).promise;
+      const page = await pdf.getPage(1);
+      // Render at 2x the canvas's CSS size for retina sharpness.
+      const cssWidth = canvas.parentElement.clientWidth || 320;
+      const viewport1x = page.getViewport({ scale: 1 });
+      const scale = (cssWidth * 2) / viewport1x.width;
+      const viewport = page.getViewport({ scale });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext("2d");
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      canvas.classList.add("is-loaded");
+    } catch (e) {
+      console.warn("[pdf-thumb] failed:", url, e);
+      canvas.parentElement && canvas.parentElement.classList.add("pdf-thumb-error");
+    }
+  }
+
+  function initPdfThumbs(root) {
+    const canvases = (root || document).querySelectorAll("canvas[data-pdf-src]:not([data-pdf-init])");
+    if (!canvases.length) return;
+    if (!("IntersectionObserver" in window)) {
+      canvases.forEach(c => { c.dataset.pdfInit = "1"; renderPdfThumb(c); });
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const c = e.target;
+        c.dataset.pdfInit = "1";
+        renderPdfThumb(c);
+        io.unobserve(c);
+      }
+    }, { rootMargin: "300px 0px" });
+    canvases.forEach(c => io.observe(c));
+  }
+
+  /* ---------- Lightbox (image zoom + inline PDF preview) ---------- */
   function initLightbox() {
-    // One global lightbox element, lazily created on first open
     let box;
     function getBox() {
       if (box) return box;
@@ -501,11 +562,11 @@
       box.className = "lightbox";
       box.setAttribute("role", "dialog");
       box.setAttribute("aria-modal", "true");
-      box.setAttribute("aria-label", "Image preview");
+      box.setAttribute("aria-label", "Preview");
       box.innerHTML = `
         <figure class="lightbox-figure">
           <button type="button" class="lightbox-close" aria-label="Close preview">×</button>
-          <img alt="" />
+          <div class="lightbox-body"></div>
           <figcaption class="lightbox-caption"></figcaption>
         </figure>
       `;
@@ -515,12 +576,30 @@
       });
       return box;
     }
-    function open(src, caption) {
+
+    function open(src, caption, opts = {}) {
       if (!src) return;
       const b = getBox();
-      b.querySelector("img").src = src;
-      b.querySelector("img").alt = caption || "";
-      b.querySelector(".lightbox-caption").textContent = caption || "";
+      const body = b.querySelector(".lightbox-body");
+      body.innerHTML = "";
+      const isPDF = opts.type === "pdf" || /\.pdf($|\?|#)/i.test(src);
+      if (isPDF) {
+        const iframe = document.createElement("iframe");
+        iframe.src = src + "#view=FitH";
+        iframe.className = "lightbox-iframe";
+        iframe.title = caption || "PDF preview";
+        body.appendChild(iframe);
+      } else {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = caption || "";
+        img.className = "lightbox-img";
+        body.appendChild(img);
+      }
+      b.querySelector(".lightbox-caption").innerHTML = `
+        <span>${escapeHTML(caption || "")}</span>
+        <a class="lightbox-open-link" href="${safeURL(src)}" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+      `;
       b.classList.add("is-open");
       document.body.classList.add("lightbox-open");
     }
@@ -528,19 +607,22 @@
       if (!box) return;
       box.classList.remove("is-open");
       document.body.classList.remove("lightbox-open");
+      // Clear iframe src to stop any media playback
+      const body = box.querySelector(".lightbox-body");
+      if (body) body.innerHTML = "";
     }
+
     document.addEventListener("click", (e) => {
       const card = e.target.closest(".cert-card");
       if (!card) return;
-      // Don't fire on inner link clicks
-      if (e.target.closest("a")) return;
-      // PDF cards: open the file in a new tab
-      const href = card.dataset.openHref;
-      if (href) {
-        window.open(href, "_blank", "noopener,noreferrer");
+      if (e.target.closest("a")) return; // don't fire on inner anchor clicks
+      // PDF cards: lightbox with iframe (was: window.open)
+      const pdfHref = card.dataset.openHref;
+      if (pdfHref) {
+        open(pdfHref, card.dataset.zoomCaption || "", { type: "pdf" });
         return;
       }
-      // Image cards: open in the lightbox
+      // Image cards: existing image lightbox
       const src = card.dataset.zoomSrc;
       const cap = card.dataset.zoomCaption || "";
       if (src) open(src, cap);

@@ -672,30 +672,74 @@ p  { margin: 0 0 1em; color: var(--color-text-muted); }
 .cert-thumb-pdf {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  place-items: center;
   background:
-    radial-gradient(120% 80% at 50% 0%, rgba(79,70,229,.10), transparent 60%),
-    linear-gradient(160deg, var(--color-primary-50), var(--color-accent-50));
-  color: var(--color-primary);
+    repeating-linear-gradient(135deg, var(--color-surface) 0 12px, var(--color-surface-2) 12px 24px);
+  overflow: hidden;
 }
-.cert-thumb-pdf svg {
-  filter: drop-shadow(0 8px 16px rgba(79,70,229,.25));
+/* Loading skeleton shimmer behind the canvas while PDF.js renders */
+.cert-thumb-pdf::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.6) 50%, transparent 100%);
+  animation: pdf-shimmer 1.4s linear infinite;
+  pointer-events: none;
 }
-.cert-thumb-pdf-label {
+.cert-thumb-pdf-canvas.is-loaded ~ ::after,
+.cert-thumb-pdf:has(.is-loaded)::after { animation: none; opacity: 0; }
+@keyframes pdf-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.cert-thumb-pdf-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 4px 14px -6px rgba(15,23,42,.18);
+  opacity: 0;
+  transition: opacity .35s ease;
+  position: relative;
+  z-index: 1;
+}
+.cert-thumb-pdf-canvas.is-loaded { opacity: 1; }
+
+.cert-thumb-pdf-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.82);
+  color: #fff;
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--color-text);
-  text-align: center;
-  max-width: 90%;
-  line-height: 1.2;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-.cert-card--pdf:hover .cert-thumb-pdf svg { transform: scale(1.05); transition: transform .25s ease; }
+
+.pdf-thumb-error::after { animation: none; opacity: 0; }
+.pdf-thumb-error .cert-thumb-pdf-canvas { display: none; }
+.pdf-thumb-error::before {
+  content: "PDF preview unavailable";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-subtle);
+  font-size: 0.85rem;
+  z-index: 1;
+}
+
+.cert-card--pdf:hover .cert-thumb-pdf-canvas { transform: scale(1.03); transition: transform .25s ease; }
 .cert-body {
   padding: 16px 18px 18px;
   display: flex;
@@ -756,10 +800,23 @@ p  { margin: 0 0 1em; color: var(--color-text-muted); }
   flex-direction: column;
   gap: 12px;
 }
-.lightbox img {
+.lightbox-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-img {
   max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.45);
+}
+.lightbox-iframe {
+  width: min(960px, 94vw);
+  height: min(82vh, 1100px);
+  border: 0;
   border-radius: var(--radius);
   background: #fff;
   box-shadow: 0 30px 60px -20px rgba(0,0,0,.45);
@@ -769,6 +826,26 @@ p  { margin: 0 0 1em; color: var(--color-text-muted); }
   text-align: center;
   font-size: 0.95rem;
   font-weight: 500;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.lightbox-open-link {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 999px;
+  transition: background .15s ease, border-color .15s ease;
+}
+.lightbox-open-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.5);
 }
 .lightbox-close {
   position: absolute;

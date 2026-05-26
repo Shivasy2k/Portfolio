@@ -25,11 +25,65 @@
       "items": [
         {
           "title": "AAIML — Reviewer",
-          "org": "Conference on Applied AI & ML",
-          "year": "2025",
+          "org": "Conference on Applied Artificial Intelligence & Machine Learning",
+          "year": "",
           "badge": "AAIML",
           "image": "content/inspiration/peer-review/Reviewer_Certificate_AAIML.pdf",
           "alt": "AAIML — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "AICCONS — Reviewer",
+          "org": "Conference on AI, Communication & Sustainability",
+          "year": "",
+          "badge": "AICCONS",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_AICCONS.pdf",
+          "alt": "AICCONS — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "AIEI — Reviewer",
+          "org": "Conference on AI, Engineering & Innovation",
+          "year": "",
+          "badge": "AIEI",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_AIEI.pdf",
+          "alt": "AIEI — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "CISCOM — Reviewer",
+          "org": "Conference on Intelligent Systems & Communications",
+          "year": "",
+          "badge": "CISCOM",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_CISCOM.pdf",
+          "alt": "CISCOM — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "ICIPTM — Reviewer",
+          "org": "International Conference on Information Processing, Telecommunications & Multimedia",
+          "year": "",
+          "badge": "ICIPTM",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_ICIPTM.pdf",
+          "alt": "ICIPTM — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "ISSATK — Reviewer",
+          "org": "International Symposium on Systems & Applied Technical Knowledge",
+          "year": "",
+          "badge": "ISSATK",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_ISSATK.pdf",
+          "alt": "ISSATK — Reviewer",
+          "link": ""
+        },
+        {
+          "title": "SysCon — Reviewer",
+          "org": "IEEE Systems Conference",
+          "year": "",
+          "badge": "SYSCON",
+          "image": "content/inspiration/peer-review/Reviewer_Certificate_Syscon.pdf",
+          "alt": "SysCon — Reviewer",
           "link": ""
         }
       ]
