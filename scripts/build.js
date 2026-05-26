@@ -91,6 +91,22 @@ function stripQuotes(v) {
   return v;
 }
 
+// Frontmatter:  draft: true  -> excluded from the build (staged content)
+function isDraft(data) {
+  if (!data) return false;
+  const v = data.draft;
+  if (v === true) return true;
+  if (typeof v === "string") return ["true", "1", "yes", "on"].includes(v.toLowerCase());
+  return false;
+}
+
+// Walk a directory of .md files, parse each, drop drafts, hand back {file, data, body}.
+function readMarkdownDir(dir) {
+  return listFiles(dir, { exts: [".md"] })
+    .map(f => ({ file: f, ...parseFrontmatter(readFile(f)) }))
+    .filter(item => !isDraft(item.data));
+}
+
 /* ---------- line-based files (.txt) ---------- */
 // Skip blank lines and lines starting with #.
 function parseLines(text) {
@@ -201,25 +217,19 @@ function buildAbout() {
     bio = mdToParagraphs(body);
   }
   const expDir = path.join(dir, "experience");
-  const experience = listFiles(expDir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return {
-      period: data.period || "",
-      role: data.role || humanizeFilename(f),
-      org: data.org || "",
-      location: data.location || "",
-      summary: data.summary || mdToParagraphs(body)[0] || ""
-    };
-  });
+  const experience = readMarkdownDir(expDir).map(({ file: f, data, body }) => ({
+    period: data.period || "",
+    role: data.role || humanizeFilename(f),
+    org: data.org || "",
+    location: data.location || "",
+    summary: data.summary || mdToParagraphs(body)[0] || ""
+  }));
   writeJSON("about.json", { bio, experience });
 }
 
 function buildSimpleCards(section, outName, mapper) {
   const dir = path.join(CONTENT, section);
-  const items = listFiles(dir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return mapper(data, body, f);
-  });
+  const items = readMarkdownDir(dir).map(({ file, data, body }) => mapper(data, body, file));
   writeJSON(outName, { items });
 }
 
@@ -258,33 +268,27 @@ function buildConferences() {
 function buildInnovation() {
   // Top-level array shape (not wrapped in {items})
   const dir = path.join(CONTENT, "innovation");
-  const items = listFiles(dir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return {
-      title: data.title || humanizeFilename(f),
-      description: data.description || mdToParagraphs(body)[0] || "",
-      year: data.year || "",
-      tag: data.tag || "",
-      link: data.link || ""
-    };
-  });
+  const items = readMarkdownDir(dir).map(({ file: f, data, body }) => ({
+    title: data.title || humanizeFilename(f),
+    description: data.description || mdToParagraphs(body)[0] || "",
+    year: data.year || "",
+    tag: data.tag || "",
+    link: data.link || ""
+  }));
   writeJSON("innovation.json", items);
 }
 
 function buildBlogs() {
   // Top-level array shape
   const dir = path.join(CONTENT, "blogs");
-  const items = listFiles(dir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return {
-      title: data.title || humanizeFilename(f),
-      date: data.date || "",
-      summary: data.summary || mdToParagraphs(body)[0] || "",
-      tag: data.tag || "",
-      link: data.link || "",
-      cta: data.cta || ""
-    };
-  });
+  const items = readMarkdownDir(dir).map(({ file: f, data, body }) => ({
+    title: data.title || humanizeFilename(f),
+    date: data.date || "",
+    summary: data.summary || mdToParagraphs(body)[0] || "",
+    tag: data.tag || "",
+    link: data.link || "",
+    cta: data.cta || ""
+  }));
   writeJSON("blogs.json", items);
 }
 
@@ -299,15 +303,12 @@ function buildLeadership() {
     ? parseLines(readFile(path.join(dir, "expertise.txt")))
     : [];
   const engDir = path.join(dir, "engagements");
-  const engagements = listFiles(engDir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return {
-      period: data.period || "",
-      title: data.title || humanizeFilename(f),
-      org: data.org || "",
-      description: data.description || mdToParagraphs(body)[0] || ""
-    };
-  });
+  const engagements = readMarkdownDir(engDir).map(({ file: f, data, body }) => ({
+    period: data.period || "",
+    title: data.title || humanizeFilename(f),
+    org: data.org || "",
+    description: data.description || mdToParagraphs(body)[0] || ""
+  }));
   writeJSON("leadership.json", { intro, engagements, expertise });
 }
 
@@ -320,17 +321,14 @@ function buildResearch() {
         .map(([label, url]) => ({ label, url }))
     : [];
   const pubDir = path.join(dir, "publications");
-  const publications = listFiles(pubDir, { exts: [".md"] }).map(f => {
-    const { data, body } = parseFrontmatter(readFile(f));
-    return {
-      title: data.title || humanizeFilename(f),
-      journal: data.journal || "",
-      year: data.year || "",
-      authors: data.authors || "",
-      link: data.link || "",
-      doi: data.doi || ""
-    };
-  });
+  const publications = readMarkdownDir(pubDir).map(({ file: f, data, body }) => ({
+    title: data.title || humanizeFilename(f),
+    journal: data.journal || "",
+    year: data.year || "",
+    authors: data.authors || "",
+    link: data.link || "",
+    doi: data.doi || ""
+  }));
   writeJSON("research.json", { profiles, publications });
 }
 
@@ -372,15 +370,12 @@ function buildInspirationTab(tabDir, tabId) {
 
   let items;
   if (type === "articles") {
-    items = listFiles(tabDir, { exts: [".md"] }).map(f => {
-      const { data, body } = parseFrontmatter(readFile(f));
-      return {
-        title: data.title || humanizeFilename(f),
-        outlet: data.outlet || "",
-        summary: data.summary || mdToParagraphs(body)[0] || "",
-        link: data.link || ""
-      };
-    });
+    items = readMarkdownDir(tabDir).map(({ file: f, data, body }) => ({
+      title: data.title || humanizeFilename(f),
+      outlet: data.outlet || "",
+      summary: data.summary || mdToParagraphs(body)[0] || "",
+      link: data.link || ""
+    }));
   } else {
     // certs: any pdf/image, with optional sibling .meta.json
     const files = listFiles(tabDir, { exts: [".pdf", ".png", ".jpg", ".jpeg", ".webp"] });

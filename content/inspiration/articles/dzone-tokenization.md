@@ -1,6 +1,6 @@
 ---
-title: Secure Log Tokenization Using Aho–Corasick for High-Volume Systems
-outlet: DZone
-summary: Approved technical article on high-throughput tokenization.
-link: https://dzone.com/
+draft: true
+# This file was the original verification sample. It is excluded from the build
+# because of `draft: true` above. Safe to delete:
+#   rm content/inspiration/articles/dzone-tokenization.md
 ---

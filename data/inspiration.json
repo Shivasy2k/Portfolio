@@ -104,10 +104,28 @@
       "type": "articles",
       "items": [
         {
-          "title": "Secure Log Tokenization Using Aho–Corasick for High-Volume Systems",
-          "outlet": "DZone",
-          "summary": "Approved technical article on high-throughput tokenization.",
-          "link": "https://dzone.com/"
+          "title": "OpenClaw on GCP: A Secure Multi-Tenant AI Agent Platform with MicroVM Isolation",
+          "outlet": "Dev.to",
+          "summary": "Designing a multi-tenant agent runtime on Google Cloud with microVM-grade isolation between workloads.",
+          "link": "https://dev.to/sivakumar_dhanasekar/openclaw-on-gcp-a-secure-multi-tenant-ai-agent-platform-with-microvm-isolation-4l50"
+        },
+        {
+          "title": "Practical RAG in the Real World: Agents, Retrieval, and Vertex AI",
+          "outlet": "LinkedIn",
+          "summary": "How Retrieval-Augmented Generation with AI agents grounds enterprise knowledge in real documents — and why governance matters more than demos.",
+          "link": "https://www.linkedin.com/pulse/practical-rag-real-world-agents-retrieval-vertex-ai-dhanasekar-yv2pe/"
+        },
+        {
+          "title": "Stablecoin Fraud Detection in Cryptocurrency: How Algorithms Can Identify Risk Before It Becomes Loss",
+          "outlet": "HackerNoon",
+          "summary": "Algorithmic approaches to detecting fraudulent stablecoin transaction patterns and surfacing risk signals before they cost real money.",
+          "link": "https://hackernoon.com/stablecoin-fraud-detection-in-cryptocurrency-how-algorithms-can-identify-risk-before-it-becomes-loss"
+        },
+        {
+          "title": "Beyond Hype: Building a Transparent Crypto Trading Bot That You Can Actually Trust",
+          "outlet": "Dev.to",
+          "summary": "Why opaque black-box trading algorithms fail, and how to build a transparent, rule-based crypto trading bot with proper risk management and backtesting.",
+          "link": "https://dev.to/sivakumar_dhanasekar/beyond-hype-building-a-transparent-crypto-trading-bot-that-you-can-actually-trust-5jg"
         }
       ]
     },
