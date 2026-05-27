@@ -169,7 +169,17 @@
       "heading": "Professional Certifications",
       "description": "Vendor and industry certifications earned over the years.",
       "type": "certs",
-      "items": []
+      "items": [
+        {
+          "title": "Generative AI Leader",
+          "org": "Google Cloud — issued via Credly",
+          "year": "",
+          "badge": "GENAI",
+          "image": "",
+          "alt": "Generative AI Leader",
+          "link": "https://www.credly.com/badges/988575be-1173-4123-aa8a-291d271b1064"
+        }
+      ]
     }
   ]
 }
