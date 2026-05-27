@@ -389,7 +389,7 @@ function buildInspirationTab(tabDir, tabId) {
     items = allFiles.map(f => {
       const rel = path.relative(ROOT, f).split(path.sep).join("/");
       if (f.toLowerCase().endsWith(".json")) {
-        // Link entry
+        // Link entry — may optionally include an external image URL (e.g., Credly badge)
         let data = {};
         try { data = JSON.parse(readFile(f)); }
         catch (e) { console.warn(`  ! invalid JSON in ${path.relative(ROOT, f)}: ${e.message}`); }
@@ -400,7 +400,7 @@ function buildInspirationTab(tabDir, tabId) {
           org: data.org || "",
           year: data.year || "",
           badge: data.badge || deriveBadge(f) || "",
-          image: "",                 // no file — renderer falls back to link tile
+          image: data.image || "",   // if set, renderer shows it as the thumbnail
           alt: data.alt || title,
           link: data.link || ""
         };

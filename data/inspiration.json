@@ -14,7 +14,53 @@
       "heading": "Fellow & Senior Memberships",
       "description": "Senior and fellow-grade memberships across IEEE and allied professional societies.",
       "type": "certs",
-      "items": []
+      "items": [
+        {
+          "title": "IEEE Senior Member",
+          "org": "Institute of Electrical and Electronics Engineers",
+          "year": "",
+          "badge": "IEEE",
+          "image": "content/inspiration/memberships/IEEE_Senior_Member.pdf",
+          "alt": "IEEE Senior Member",
+          "link": ""
+        },
+        {
+          "title": "IETE Fellow",
+          "org": "Institution of Electronics and Telecommunication Engineers",
+          "year": "",
+          "badge": "IETE",
+          "image": "content/inspiration/memberships/IETE_Fellow.pdf",
+          "alt": "IETE Fellow",
+          "link": ""
+        },
+        {
+          "title": "SAS Eminent Fellow",
+          "org": "Society of Applied Sciences",
+          "year": "",
+          "badge": "SAS",
+          "image": "content/inspiration/memberships/SAS_Eminent_Fellow.pdf",
+          "alt": "SAS Eminent Fellow",
+          "link": ""
+        },
+        {
+          "title": "SCRS Fellow",
+          "org": "Soft Computing Research Society",
+          "year": "",
+          "badge": "SCRS",
+          "image": "content/inspiration/memberships/SCRS_Fellow.pdf",
+          "alt": "SCRS Fellow",
+          "link": ""
+        },
+        {
+          "title": "WRU Membership",
+          "org": "WRU",
+          "year": "",
+          "badge": "WRU",
+          "image": "content/inspiration/memberships/WRU_Membership.pdf",
+          "alt": "WRU Membership",
+          "link": ""
+        }
+      ]
     },
     {
       "id": "peer-review",
@@ -175,7 +221,7 @@
           "org": "Google Cloud — issued via Credly",
           "year": "",
           "badge": "GENAI",
-          "image": "",
+          "image": "https://images.credly.com/size/680x680/images/ec23e41a-0f32-4a98-9c00-28925621b281/image.png",
           "alt": "Generative AI Leader",
           "link": "https://www.credly.com/badges/988575be-1173-4123-aa8a-291d271b1064"
         }

@@ -344,10 +344,16 @@
     }
 
     // Attributes that drive click behavior
+    const hasLink = !!item.link;
     let cardAttrs;
     if (isPDF) {
+      // PDF: lightbox the file (existing behavior)
       cardAttrs = `data-open-href="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
+    } else if (hasFile && hasLink) {
+      // Image with link (e.g., Credly badge) — image is the thumbnail, click opens the link
+      cardAttrs = `data-link-href="${safeURL(item.link)}"`;
     } else if (hasFile) {
+      // Plain image — zoom in lightbox
       cardAttrs = `data-zoom-src="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
     } else if (isLinkOnly) {
       cardAttrs = `data-link-href="${safeURL(item.link)}"`;
@@ -356,12 +362,14 @@
     }
 
     let hint;
-    if (isPDF) {
+    if (isPDF && hasLink) {
+      hint = `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`;
+    } else if (isPDF) {
       hint = `<span class="cert-hint">Click to enlarge</span>`;
+    } else if (hasFile && hasLink) {
+      hint = `<span class="cert-hint">Verify ↗</span>`;
     } else if (isLinkOnly) {
       hint = `<span class="cert-hint">Read paper ↗</span>`;
-    } else if (item.link) {
-      hint = `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`;
     } else if (hasFile) {
       hint = `<span class="cert-hint">Click to enlarge</span>`;
     } else {
