@@ -308,13 +308,13 @@
     const isPDF = /\.pdf($|\?|#)/i.test(path);
     const fallback = escapeHTML(initials(item.title || "") || "•");
 
+    const isLinkOnly = !hasFile && !!item.link;
     let thumbInner;
     if (isPDF) {
       const badge = escapeHTML(
         (item.badge || item.title || "").replace(/^.*?\b([A-Z][A-Z0-9]{2,})\b.*$/, "$1") || "PDF"
       );
       // Canvas gets filled by renderPdfThumb() after the card scrolls into view.
-      // While loading, the skeleton (the gradient background of .cert-thumb-pdf) shows through.
       thumbInner = `
         <div class="cert-thumb-pdf" aria-hidden="true">
           <canvas class="cert-thumb-pdf-canvas" data-pdf-src="${safeURL(path)}"></canvas>
@@ -325,20 +325,48 @@
         <img src="${safeURL(path)}" alt="${escapeHTML(item.alt || item.title || "")}" loading="lazy"
              onerror="this.remove();this.parentElement.querySelector('.cert-thumb-fallback').style.display='grid';" />
         <div class="cert-thumb-fallback" style="display:none;" aria-hidden="true">${fallback}</div>`;
+    } else if (isLinkOnly) {
+      // Link-only entry — render a "paper" tile (document icon + acronym badge)
+      const badge = escapeHTML(item.badge || fallback || "PAPER");
+      thumbInner = `
+        <div class="cert-thumb-link" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+            <path fill="currentColor" d="M30 4H10a4 4 0 0 0-4 4v32a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4V16L30 4z"/>
+            <path fill="rgba(255,255,255,0.55)" d="M30 4v10a2 2 0 0 0 2 2h10z"/>
+            <rect x="12" y="22" width="20" height="2" fill="#fff" opacity="0.85"/>
+            <rect x="12" y="28" width="20" height="2" fill="#fff" opacity="0.85"/>
+            <rect x="12" y="34" width="14" height="2" fill="#fff" opacity="0.85"/>
+          </svg>
+          <span class="cert-thumb-pdf-badge">${badge}</span>
+        </div>`;
     } else {
       thumbInner = `<div class="cert-thumb-fallback" aria-hidden="true">${fallback}</div>`;
     }
 
     // Attributes that drive click behavior
-    const cardAttrs = isPDF
-      ? `data-open-href="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`
-      : `data-zoom-src="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
+    let cardAttrs;
+    if (isPDF) {
+      cardAttrs = `data-open-href="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
+    } else if (hasFile) {
+      cardAttrs = `data-zoom-src="${safeURL(path)}" data-zoom-caption="${escapeHTML(item.title || "")}"`;
+    } else if (isLinkOnly) {
+      cardAttrs = `data-link-href="${safeURL(item.link)}"`;
+    } else {
+      cardAttrs = "";
+    }
 
-    const hint = isPDF
-      ? `<span class="cert-hint">Click to enlarge</span>`
-      : (item.link
-          ? `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`
-          : (hasFile ? `<span class="cert-hint">Click to enlarge</span>` : ""));
+    let hint;
+    if (isPDF) {
+      hint = `<span class="cert-hint">Click to enlarge</span>`;
+    } else if (isLinkOnly) {
+      hint = `<span class="cert-hint">Read paper ↗</span>`;
+    } else if (item.link) {
+      hint = `<a class="cert-hint" href="${safeURL(item.link)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Visit source ↗</a>`;
+    } else if (hasFile) {
+      hint = `<span class="cert-hint">Click to enlarge</span>`;
+    } else {
+      hint = "";
+    }
 
     return `
       <button type="button" class="cert-card${isPDF ? " cert-card--pdf" : ""}"
@@ -616,10 +644,16 @@
       const card = e.target.closest(".cert-card");
       if (!card) return;
       if (e.target.closest("a")) return; // don't fire on inner anchor clicks
-      // PDF cards: lightbox with iframe (was: window.open)
+      // PDF cards: lightbox with iframe
       const pdfHref = card.dataset.openHref;
       if (pdfHref) {
         open(pdfHref, card.dataset.zoomCaption || "", { type: "pdf" });
+        return;
+      }
+      // Link-only cards: open the external URL in a new tab
+      const linkHref = card.dataset.linkHref;
+      if (linkHref) {
+        window.open(linkHref, "_blank", "noopener,noreferrer");
         return;
       }
       // Image cards: existing image lightbox

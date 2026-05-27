@@ -94,7 +94,35 @@
       "heading": "Peer-Reviewed Publication Certificates",
       "description": "Author certificates for IEEE conferences and indexed journals.",
       "type": "certs",
-      "items": []
+      "items": [
+        {
+          "title": "IEEE Publication — Document 11483701",
+          "org": "IEEE Xplore",
+          "year": "",
+          "badge": "IEEE",
+          "image": "",
+          "alt": "IEEE Publication — Document 11483701",
+          "link": "https://ieeexplore.ieee.org/document/11483701"
+        },
+        {
+          "title": "IJCRT — Paper IJCRT25A5968",
+          "org": "International Journal of Creative Research Thoughts",
+          "year": "2025",
+          "badge": "IJCRT",
+          "image": "",
+          "alt": "IJCRT — Paper IJCRT25A5968",
+          "link": "https://ijcrt.org/viewfull.php?&p_id=IJCRT25A5968"
+        },
+        {
+          "title": "International Journal of Software Engineering — Manuscript IJSE-197",
+          "org": "CSC Journals — IJSE",
+          "year": "",
+          "badge": "IJSE",
+          "image": "",
+          "alt": "International Journal of Software Engineering — Manuscript IJSE-197",
+          "link": "https://www.cscjournals.org/library/manuscriptinfo.php?mc=IJSE-197"
+        }
+      ]
     },
     {
       "id": "articles",

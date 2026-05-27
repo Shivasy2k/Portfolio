@@ -377,11 +377,36 @@ function buildInspirationTab(tabDir, tabId) {
       link: data.link || ""
     }));
   } else {
-    // certs: any pdf/image, with optional sibling .meta.json
-    const files = listFiles(tabDir, { exts: [".pdf", ".png", ".jpg", ".jpeg", ".webp"] });
-    items = files.map(f => {
-      const meta = loadSiblingMeta(f);
+    // certs tab: accepts a mix of
+    //   * file entries — .pdf/.png/.jpg/.jpeg/.webp (with optional .meta.json sibling)
+    //   * link entries — standalone .json files (NOT .meta.json) with { title, org, year, badge, link }
+    const FILE_EXTS = [".pdf", ".png", ".jpg", ".jpeg", ".webp"];
+    const allFiles = listFiles(tabDir).filter(f => {
+      const lower = f.toLowerCase();
+      if (lower.endsWith(".meta.json")) return false;       // siblings, not entries
+      return FILE_EXTS.includes(path.extname(lower)) || lower.endsWith(".json");
+    });
+    items = allFiles.map(f => {
       const rel = path.relative(ROOT, f).split(path.sep).join("/");
+      if (f.toLowerCase().endsWith(".json")) {
+        // Link entry
+        let data = {};
+        try { data = JSON.parse(readFile(f)); }
+        catch (e) { console.warn(`  ! invalid JSON in ${path.relative(ROOT, f)}: ${e.message}`); }
+        if (isDraft(data)) return null;
+        const title = data.title || humanizeFilename(f);
+        return {
+          title,
+          org: data.org || "",
+          year: data.year || "",
+          badge: data.badge || deriveBadge(f) || "",
+          image: "",                 // no file — renderer falls back to link tile
+          alt: data.alt || title,
+          link: data.link || ""
+        };
+      }
+      // File entry (PDF or image)
+      const meta = loadSiblingMeta(f);
       const title = meta.title || humanizeFilename(f);
       return {
         title,
@@ -392,7 +417,7 @@ function buildInspirationTab(tabDir, tabId) {
         alt: meta.alt || title,
         link: meta.link || ""
       };
-    });
+    }).filter(Boolean);
   }
 
   return { id: tabId, label, heading, description, type, items };
