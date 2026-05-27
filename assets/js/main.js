@@ -196,6 +196,22 @@
       }
     }
 
+    // Speaker certificates (cert-grid on talks.html)
+    const speakerCertsEl = $("[data-render=speaker-certs]");
+    if (speakerCertsEl) {
+      try {
+        const data = await loadJSON("speaker-certs");
+        const items = Array.isArray(data) ? data : (data.items || []);
+        speakerCertsEl.innerHTML = items.length
+          ? items.map(certCardHTML).join("")
+          : `<div class="empty">No certificates yet — drop PDFs into <code>content/talks/certificates/</code>.</div>`;
+        initPdfThumbs(speakerCertsEl);
+      } catch (e) {
+        console.warn("[speaker-certs] error:", e);
+        speakerCertsEl.innerHTML = `<div class="empty">Could not load <code>data/speaker-certs.json</code>.</div>`;
+      }
+    }
+
     if (timelineEl) {
       try {
         const data = await loadJSON("conferences");

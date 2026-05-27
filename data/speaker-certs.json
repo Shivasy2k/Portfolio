@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "title": "CVR 2026 — Keynote Speaker",
+      "org": "International Conference on Computer Vision & Robotics",
+      "year": "2026",
+      "badge": "CVR",
+      "image": "content/talks/certificates/CVR_2026_Keynote.pdf",
+      "alt": "CVR 2026 — Keynote Speaker",
+      "link": ""
+    },
+    {
+      "title": "ICMLAS — Paper Presentation",
+      "org": "International Conference on Machine Learning & Applied Sciences",
+      "year": "",
+      "badge": "ICMLAS",
+      "image": "content/talks/certificates/ICMLAS_Paper_Presentation.pdf",
+      "alt": "ICMLAS — Paper Presentation",
+      "link": ""
+    },
+    {
+      "title": "Invited Talk — Certificate of Appreciation",
+      "org": "",
+      "year": "",
+      "badge": "TALK",
+      "image": "content/talks/certificates/Invited_Talk_Certificate.pdf",
+      "alt": "Invited Talk — Certificate of Appreciation",
+      "link": ""
+    }
+  ]
+}

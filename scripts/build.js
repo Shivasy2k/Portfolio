@@ -245,6 +245,50 @@ function buildTalks() {
   }));
 }
 
+// Speaker certificates — PDFs/images in content/talks/certificates/ render as a
+// cert-grid on the Public Influencer page (same renderer as inspiration cert tabs).
+function buildSpeakerCerts() {
+  const dir = path.join(CONTENT, "talks", "certificates");
+  if (!exists(dir)) { writeJSON("speaker-certs.json", { items: [] }); return; }
+  const FILE_EXTS = [".pdf", ".png", ".jpg", ".jpeg", ".webp"];
+  const allFiles = listFiles(dir).filter(f => {
+    const lower = f.toLowerCase();
+    if (lower.endsWith(".meta.json")) return false;
+    return FILE_EXTS.includes(path.extname(lower)) || lower.endsWith(".json");
+  });
+  const items = allFiles.map(f => {
+    const rel = path.relative(ROOT, f).split(path.sep).join("/");
+    if (f.toLowerCase().endsWith(".json")) {
+      let data = {};
+      try { data = JSON.parse(readFile(f)); }
+      catch (e) { console.warn(`  ! invalid JSON in ${path.relative(ROOT, f)}: ${e.message}`); }
+      if (isDraft(data)) return null;
+      const title = data.title || humanizeFilename(f);
+      return {
+        title,
+        org: data.org || "",
+        year: data.year || "",
+        badge: data.badge || deriveBadge(f) || "",
+        image: data.image || "",
+        alt: data.alt || title,
+        link: data.link || ""
+      };
+    }
+    const meta = loadSiblingMeta(f);
+    const title = meta.title || humanizeFilename(f);
+    return {
+      title,
+      org: meta.org || "",
+      year: meta.year || "",
+      badge: meta.badge || deriveBadge(f) || "",
+      image: rel,
+      alt: meta.alt || title,
+      link: meta.link || ""
+    };
+  }).filter(Boolean);
+  writeJSON("speaker-certs.json", { items });
+}
+
 function buildInterviews() {
   buildSimpleCards("interviews", "interviews.json", (data, body, f) => ({
     date: data.date || "",
@@ -427,17 +471,18 @@ function buildInspirationTab(tabDir, tabId) {
 function main() {
   console.log("Building site data from content/ …");
   const builders = [
-    ["site",        buildSite],
-    ["home",        buildHome],
-    ["about",       buildAbout],
-    ["talks",       buildTalks],
-    ["interviews",  buildInterviews],
-    ["conferences", buildConferences],
-    ["innovation",  buildInnovation],
-    ["blogs",       buildBlogs],
-    ["leadership",  buildLeadership],
-    ["research",    buildResearch],
-    ["inspiration", buildInspiration]
+    ["site",          buildSite],
+    ["home",          buildHome],
+    ["about",         buildAbout],
+    ["talks",         buildTalks],
+    ["speaker-certs", buildSpeakerCerts],
+    ["interviews",    buildInterviews],
+    ["conferences",   buildConferences],
+    ["innovation",    buildInnovation],
+    ["blogs",         buildBlogs],
+    ["leadership",    buildLeadership],
+    ["research",      buildResearch],
+    ["inspiration",   buildInspiration]
   ];
   let failures = 0;
   for (const [name, fn] of builders) {
