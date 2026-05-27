@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Medium "M" logo (official monogram), centered on a white background.
+  16:10 aspect ratio so it fits the talks-card .card-media area cleanly.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+  <rect width="640" height="400" fill="#ffffff"/>
+  <g transform="translate(160, 109) scale(0.307)">
+    <path fill="#000000" d="M588.67 296.36c0 163.67-131.78 296.35-294.34 296.35S0 460 0 296.36 131.78 0 294.33 0s294.34 132.69 294.34 296.36M911.56 296.36c0 154.06-65.89 278.94-147.17 278.94s-147.17-124.88-147.17-278.94 65.88-278.94 147.16-278.94 147.17 124.88 147.17 278.94M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.94-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.94 51.76 249.94"/>
+  </g>
+</svg>

@@ -8,6 +8,15 @@
       "alt": "Beyond Rule Engines — Real-Time Fraud Detection with Graph AI and APIs",
       "link": "https://www.apidays.global/events/new-york",
       "cta": "View session"
+    },
+    {
+      "title": "Sivakumar Dhanasekar of Equifax — 5 Things You Need To Succeed In The Modern World Of Finance & Fintech",
+      "tag": "Interview",
+      "description": "Long-form Authority Magazine interview with Gabriel Borden on trust as a business model, governance as a moat, and what it takes to ship reliable AI in fintech.",
+      "image": "assets/img/logos/medium.svg",
+      "alt": "Authority Magazine on Medium",
+      "link": "https://medium.com/authority-magazine/sivakumar-dhanasekar-of-equifax-on-5-things-you-need-to-succeed-in-the-modern-world-of-finance-a7086ece1398",
+      "cta": "Read on Medium"
     }
   ]
 }
