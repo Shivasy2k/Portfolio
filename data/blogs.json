@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "title": "Hands-Off Coding on GCP: Building Autonomous Agents with Guardrails",
+    "date": "2026",
+    "summary": "A guide to building autonomous coding agents on Google Cloud with practical guardrails and operational controls.",
+    "tag": "AI Agents / Guardrails",
+    "link": "https://hackernoon.com/hands-off-coding-on-gcp-building-autonomous-agents-with-guardrails",
+    "cta": "Read on HackerNoon"
+  },
+  {
+    "title": "OpenClaw on GCP: A Secure Multi-Tenant AI Agent Platform with MicroVM Isolation",
+    "date": "2026",
+    "summary": "A technical look at building a secure, multi-tenant AI agent platform on Google Cloud with microVM isolation.",
+    "tag": "AI Agents / GCP",
+    "link": "https://dev.to/sivakumar_dhanasekar/openclaw-on-gcp-a-secure-multi-tenant-ai-agent-platform-with-microvm-isolation-4l50",
+    "cta": "Read on Dev.to"
+  },
+  {
+    "title": "Practical RAG for Real-World Agents with Retrieval and Vertex AI",
+    "date": "2026",
+    "summary": "Practical patterns for retrieval-augmented generation in real-world agent systems using Vertex AI.",
+    "tag": "RAG / Vertex AI",
+    "link": "https://www.linkedin.com/pulse/practical-rag-real-world-agents-retrieval-vertex-ai-dhanasekar-yv2pe/",
+    "cta": "Read on LinkedIn"
+  },
+  {
+    "title": "Stablecoin Fraud Detection in Cryptocurrency: How Algorithms Can Identify Risk Before It Becomes Loss",
+    "date": "2026",
+    "summary": "How algorithmic approaches can identify cryptocurrency and stablecoin fraud signals before they become financial losses.",
+    "tag": "Fraud / Crypto",
+    "link": "https://hackernoon.com/stablecoin-fraud-detection-in-cryptocurrency-how-algorithms-can-identify-risk-before-it-becomes-loss",
+    "cta": "Read on HackerNoon"
+  },
+  {
+    "title": "Beyond Hype: Building a Transparent Crypto Trading Bot That You Can Actually Trust",
+    "date": "2026",
+    "summary": "A practical perspective on transparency, trust, and design choices in crypto trading automation.",
+    "tag": "AI / Crypto",
+    "link": "https://dev.to/sivakumar_dhanasekar/beyond-hype-building-a-transparent-crypto-trading-bot-that-you-can-actually-trust-5jg",
+    "cta": "Read on Dev.to"
+  }
+]
