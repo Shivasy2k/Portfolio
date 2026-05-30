@@ -1,14 +1,6 @@
 {
   "tabs": [
     {
-      "id": "mentorship",
-      "label": "Mentorship & Organizer",
-      "heading": "Mentorship & Organizer",
-      "description": "Mentoring credentials, community-organizer roles, and student/industry talks.",
-      "type": "certs",
-      "items": []
-    },
-    {
       "id": "memberships",
       "label": "Memberships",
       "heading": "Fellow & Senior Memberships",
