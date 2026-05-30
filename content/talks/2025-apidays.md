@@ -3,6 +3,6 @@ title: Beyond Rule Engines — Real-Time Fraud Detection with Graph AI and APIs
 tag: Conference Talk
 description: Agentic APIs for risk management, fraud detection, and regtech.
 image: assets/img/API_Days_poster.png
-link: https://www.apidays.global/events/new-york
+link: https://www.apidays.global/archive/2025/new-york-d3c79#speakers
 cta: View session
 ---
