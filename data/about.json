@@ -1,4 +1,73 @@
 {
-  "bio": [],
-  "experience": []
+  "bio": [
+    "Sivakumar Dhanasekar is a software engineering leader and enterprise architect with more than two decades of experience building enterprise-scale applications across financial technology, retail, identity, fraud, and supply-chain domains.",
+    "His work focuses on AI-driven, cloud-native, and data-centric platforms that combine secure architecture, scalable microservices, API orchestration, and practical automation. At Equifax, he leads digital transformation initiatives for identity and fraud services, including AI-based solutions that support device reputation, fraud risk scoring, trust scoring, and verification confidence.",
+    "Sivakumar has deep hands-on experience across Java, Spring Boot, REST APIs, cloud platforms, Kubernetes, Docker, CI/CD, and modern application modernization. He has led distributed engineering teams, mentored developers, owned technical design and delivery quality, and guided complex migrations from legacy systems to secure cloud-ready platforms.",
+    "Beyond delivery leadership, he contributes to the broader technology community through IEEE and IETE memberships, technical program committees, peer review service, scholarly publications, conference talks, and applied research in trustworthy AI, fintech, fraud detection, and cloud-native platforms."
+  ],
+  "experience": [
+    {
+      "period": "Jun 2021 - Present",
+      "role": "Lead Developer and Product Owner",
+      "org": "Equifax",
+      "location": "Atlanta, GA",
+      "summary": "Leading Identity and Fraud Services platform work, including Java/Spring Boot microservices, GCP-based architecture, API orchestration, secure delivery practices, product backlog ownership, and AI-enabled identity and fraud verification solutions."
+    },
+    {
+      "period": "Feb 2019 - May 2021",
+      "role": "Lead Developer",
+      "org": "Equifax",
+      "location": "Atlanta, GA",
+      "summary": "Directed modernization of legacy enterprise applications into secure cloud-ready platforms, leading distributed engineering teams, designing microservices architectures, remediating vulnerabilities, and delivering AWS-based deployment patterns with Docker, Jenkins, Java, Spring, and REST APIs."
+    },
+    {
+      "period": "May 2016 - Jan 2019",
+      "role": "Team Lead",
+      "org": "The Home Depot",
+      "location": "Atlanta, GA",
+      "summary": "Led Special Services Order Maintenance modernization, managing offshore delivery, serving as application SPOC, defining technical design, and implementing reusable REST APIs for a lightweight MVC application supporting in-store order workflows."
+    },
+    {
+      "period": "Sep 2015 - May 2016",
+      "role": "Senior Java Developer",
+      "org": "The Home Depot",
+      "location": "Atlanta, GA",
+      "summary": "Built forecasting, replenishment, and distribution-center transfer capabilities using Java, Struts, Hibernate, JSP, RESTful services, DB2, and Tomcat, with responsibility for design documents, testing, performance tuning, and production delivery."
+    },
+    {
+      "period": "Jul 2013 - Aug 2015",
+      "role": "Senior Java Developer",
+      "org": "The Home Depot",
+      "location": "Atlanta, GA",
+      "summary": "Developed Volume Price Program features for pro-customer pricing workflows, including JSP and Servlet interfaces, Java batch processes, RESTful services, JDBC data access, stored procedures, testing, and Tomcat deployments."
+    },
+    {
+      "period": "Nov 2011 - Jun 2013",
+      "role": "Java Developer",
+      "org": "The Home Depot",
+      "location": "Chennai, India",
+      "summary": "Delivered Supply Chain Visibility capabilities for order and shipment monitoring, using Agile Scrum, REST services, HTML5, jQuery, Ajax, JMS integrations, DAO patterns, Splunk reporting, Jenkins builds, and Java application testing."
+    },
+    {
+      "period": "Aug 2010 - Oct 2011",
+      "role": "Java Developer",
+      "org": "The Home Depot",
+      "location": "Chennai, India",
+      "summary": "Developed Open Tub workflow features to digitize purchase order tracking and vendor follow-up processes, implementing JSP, Servlets, SQL procedures, Java services, XML integrations, testing, and Tomcat deployments."
+    },
+    {
+      "period": "Aug 2008 - Jul 2010",
+      "role": "QA Testing Lead",
+      "org": "The Home Depot",
+      "location": "Chennai, India",
+      "summary": "Led testing for Inventory Planning and Replenishment enhancements, designing test plans, test scenarios, automated REST/SOAP API tests, service mocks, defect tracking, quality recommendations, and CI-friendly validation workflows."
+    },
+    {
+      "period": "May 2007 - Aug 2008",
+      "role": "QA Testing",
+      "org": "The Home Depot",
+      "location": "Chennai, India",
+      "summary": "Supported Distribution Networks Maintenance enhancements through requirements analysis, test planning, scenario creation, defect tracking, and quality feedback for distribution network workflows."
+    }
+  ]
 }
