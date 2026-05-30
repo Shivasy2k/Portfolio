@@ -1,0 +1,12 @@
+Enterprise Architecture
+Identity & Fraud Platforms
+AI-Enabled Risk Scoring
+Cloud Migration Strategy
+Java / Spring Boot Microservices
+API Orchestration
+Secure Engineering Governance
+Product Ownership
+Distributed Team Leadership
+CI/CD and Delivery Modernization
+Technical Mentorship
+Architecture Review
