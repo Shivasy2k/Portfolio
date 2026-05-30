@@ -1,3 +1,4 @@
-Cloud-native product architecture and platform strategy
-Applied AI / ML across customer experience and operations
-Public speaking, mentoring, and community building
+Lead Software Engineer and Enterprise Architect at Equifax
+AI-driven identity, fraud verification, device reputation, and trust scoring
+Java, Spring Boot, REST APIs, Kubernetes, Docker, GCP, AWS, and CI/CD
+IEEE Senior Member, IETE Fellow, author, reviewer, speaker, and patent filer
