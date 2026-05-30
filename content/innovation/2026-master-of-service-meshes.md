@@ -1,0 +1,7 @@
+---
+title: "Master of Service Meshes"
+description: "Patent application filed. Inventor: Sivakumar Dhanasekar. Reference No: 096923-1509158 (EFX-216US)."
+year: "2026"
+tag: "Patent Filed"
+link: ""
+---
