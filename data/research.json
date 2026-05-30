@@ -1,4 +1,53 @@
 {
   "profiles": [],
-  "publications": []
+  "publications": [
+    {
+      "title": "End-to-End LLM Systems: Data, Training, Evaluation, and Deployment",
+      "journal": "IEEE Conference Paper - Bangkok, Thailand",
+      "year": "2026",
+      "authors": "Sivakumar Dhanasekar",
+      "link": "",
+      "doi": ""
+    },
+    {
+      "title": "From Prototype to Platform: Cloud-Native AI at Scale",
+      "journal": "IEEE Conference Paper - Dubai, UAE",
+      "year": "2026",
+      "authors": "Sivakumar Dhanasekar",
+      "link": "",
+      "doi": ""
+    },
+    {
+      "title": "Responsible AI Pipelines in Retail: Bias, Explainability, and Trust in Automated Decision Systems",
+      "journal": "IEEE Conference Paper - Kuala Lumpur, Malaysia",
+      "year": "2026",
+      "authors": "Sivakumar Dhanasekar, co-author",
+      "link": "",
+      "doi": ""
+    },
+    {
+      "title": "Explainable Graph Neural Networks for Payment Fraud Detection and Chargeback Reduction",
+      "journal": "IEEE Conference Paper - Cairo, Egypt",
+      "year": "2026",
+      "authors": "Sivakumar Dhanasekar, co-author",
+      "link": "",
+      "doi": ""
+    },
+    {
+      "title": "Architecting Trustworthy AI-Assisted Retail Pricing Systems on Cloud-Native Platforms",
+      "journal": "International Journal of Creative Research Thoughts",
+      "year": "2025",
+      "authors": "Sivakumar Dhanasekar",
+      "link": "",
+      "doi": ""
+    },
+    {
+      "title": "Defending ML Pipelines End-to-End: Architecture Against Poisoning, Evasion, and Extraction",
+      "journal": "International Journal of Software Engineering",
+      "year": "2026",
+      "authors": "Sivakumar Dhanasekar",
+      "link": "",
+      "doi": ""
+    }
+  ]
 }
